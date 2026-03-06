@@ -1,0 +1,231 @@
+{% extends 'inventory/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+  <!-- Top Navbar -->
+  <nav class="navbar bg-white border shadow-sm sticky-top px-4 mb-4 rounded-3 z-1">
+    <div class="d-flex align-items-center gap-3">
+
+      <i class="bi bi-person-check text-warning fs-2"></i>
+
+      <div class="d-flex flex-column lh-sm">
+        <span class="fw-semibold text-dark">Assignments</span>
+        <span class="text-muted small">Hardware Management</span>
+      </div>
+
+      <div class="vr"></div>
+
+      <div class="d-flex align-items-center gap-2">
+        <span class="badge bg-light text-dark border rounded-5 px-3 py-2">Total: {{ assignments|length }}</span>
+        <span class="badge bg-primary-subtle text-primary rounded-5 px-3 py-2">Primary: {{ primary_count }}</span>
+        <span class="badge bg-success-subtle text-success rounded-5 px-3 py-2">Shared: {{ shared_count }}</span>
+      </div>
+
+    </div>
+
+    <div class="d-flex align-items-center gap-2 ms-auto">
+
+      <div class="dropdown">
+        <button class="btn btn-sm btn-light border dropdown-toggle" data-bs-toggle="dropdown">
+          <i class="bi bi-download me-1"></i> Export
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item"><i class="bi bi-file-pdf text-danger me-2"></i>PDF</a></li>
+          <li><a class="dropdown-item"><i class="bi bi-file-earmark-excel text-success me-2"></i>Excel</a></li>
+          <li><a class="dropdown-item"><i class="bi bi-file-earmark-csv text-primary me-2"></i>CSV</a></li>
+        </ul>
+      </div>
+
+      <a href="#" class="btn btn-sm btn-light border d-flex align-items-center gap-2 px-3">
+        <i class="bi bi-plus-lg"></i>
+        <span class="small fw-semibold">Add Assignment</span>
+      </a>
+
+      <button class="btn btn-sm btn-light border">
+        <i class="bi bi-funnel"></i>
+      </button>
+
+    </div>
+  </nav>
+
+
+  <!-- Results + View Toggle -->
+  <div class="d-flex justify-content-between align-items-center px-3 mb-3">
+    <span class="text-muted small">Showing {{ assignments|length }} assignments</span>
+    <div class="btn-group btn-group-sm">
+      <button class="btn btn-light border active"><i class="bi bi-grid-3x3-gap-fill"></i></button>
+      <button class="btn btn-light border"><i class="bi bi-list-ul"></i></button>
+    </div>
+  </div>
+
+
+  <!-- Cards -->
+  <div class="px-3">
+    <div class="row g-4" data-masonry='{"percentPosition": true, "horizontalOrder": true}'>
+
+      {% for assignment in assignments %}
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="card h-100 shadow-sm rounded-4 overflow-hidden card-hover border-top border-warning">
+
+          <!-- Card Header -->
+          <div class="card-header bg-transparent border-0 pt-3 pb-1 px-3">
+
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="badge bg-secondary rounded-2 px-3 py-2">#{{ forloop.counter|stringformat:"d" }}</span>
+              <span class="badge {% if assignment.assignment_type == 'primary' %}bg-primary-subtle text-primary{% elif assignment.assignment_type == 'shared' %}bg-success-subtle text-success{% else %}bg-warning-subtle text-warning{% endif %} px-3 py-2 rounded-2 fw-normal">
+                <i class="bi {% if assignment.assignment_type == 'primary' %}bi-person-check{% elif assignment.assignment_type == 'shared' %}bi-people{% else %}bi-person-dash{% endif %} me-1"></i>
+                {{ assignment.assignment_type|capfirst }}
+              </span>
+            </div>
+
+            <div class="d-flex align-items-center gap-2">
+              <div class="bg-light rounded-2 p-2">
+                <i class="bi bi-person-check text-secondary fs-5"></i>
+              </div>
+              <div>
+                <span class="fw-bold text-dark">{{ assignment.user.name|capfirst }} {{ assignment.user.surname|capfirst }}</span>
+                <span class="text-muted small d-block"><i class="bi bi-pc-display me-1"></i>{{ assignment.device.brand|capfirst }} · {{ assignment.device.model|capfirst }}</span>
+              </div>
+            </div>
+
+          </div>
+
+
+          <!-- Serial -->
+          <div class="px-3 pt-2 pb-1">
+            <div class="d-flex flex-wrap gap-2">
+              <span class="badge bg-light text-dark border"><i class="bi bi-upc-scan me-1"></i>{{ assignment.device.serial }}</span>
+            </div>
+          </div>
+
+
+          <!-- Dates -->
+          <div class="card-body pt-2 pb-2 px-3">
+            <div class="row g-1">
+              <div class="col-6">
+                <div class="bg-light rounded p-2 text-center">
+                  <span class="fw-semibold small d-block">{{ assignment.assignment_date }}</span>
+                  <span class="text-muted small">Start</span>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="bg-light rounded p-2 text-center">
+                  <span class="fw-semibold small d-block">{{ assignment.end_date|default:"—" }}</span>
+                  <span class="text-muted small">End</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Assignment Details -->
+          <div class="px-3 pt-1 pb-2">
+
+            <span class="text-muted opacity-75 section-label d-block mb-1">Assignment</span>
+
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-person text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">User</span>
+                <span class="text-dark small">{{ assignment.user.name|capfirst }} {{ assignment.user.surname|capfirst }}</span>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-envelope text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">Email</span>
+                <span class="text-dark small">{{ assignment.user.email }}</span>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-toggles text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">Usage Type</span>
+                <span class="text-dark small">{{ assignment.device.usage_type|capfirst }}</span>
+              </div>
+            </div>
+
+            {% if assignment.notes %}
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-card-text text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">Notes</span>
+                <span class="text-dark small">{{ assignment.notes|truncatechars:30 }}</span>
+              </div>
+            </div>
+            {% endif %}
+
+          </div>
+
+
+          <!-- Location -->
+          <div class="px-3 pt-1 pb-2">
+
+            <span class="text-muted opacity-75 section-label d-block mb-1">Location</span>
+
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-geo-alt text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">Place</span>
+                <span class="text-dark small">
+                  {% if assignment.device.space %}
+                    {{ assignment.device.space.building }} · {{ assignment.device.space.room }}
+                  {% elif assignment.device.common_area %}
+                    {{ assignment.device.common_area }}
+                  {% else %}
+                    —
+                  {% endif %}
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+
+          <!-- Footer -->
+          <div class="d-flex justify-content-between align-items-center px-3 py-2 border-top">
+            <div class="d-flex align-items-center gap-1 small text-muted">
+              <i class="bi bi-geo-alt-fill text-secondary"></i>
+              {% if assignment.device.space %}
+                {{ assignment.device.space }}
+              {% elif assignment.device.common_area %}
+                {{ assignment.device.common_area }}
+              {% endif %}
+            </div>
+            <div class="d-flex gap-2">
+              <button class="btn btn-sm btn-outline-info border-1"><i class="bi bi-pencil"></i></button>
+              <button class="btn btn-sm btn-outline-warning border-1"><i class="bi bi-trash"></i></button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
+
+<style>
+.card-hover {
+  transition: transform .2s ease-in-out, box-shadow .2s ease-in-out;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+}
+.section-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.03em;
+}
+</style>
+
+{% endblock %}

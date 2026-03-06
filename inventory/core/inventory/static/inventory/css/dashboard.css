@@ -1,0 +1,20 @@
+.dashboard-card { transition: all 0.2s ease; }
+.dashboard-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,.08) !important;
+  transform: translateY(-1px);
+  border-color: #64748b !important;
+}
+
+.card-title { letter-spacing: 0.5px; }
+
+.spatial  { border-top: 3.5px solid #2563eb !important; }
+.spatial .card-icon  { color: #2563eb; }
+
+.organic  { border-top: 3.5px solid #db2777 !important; }
+.organic .card-icon  { color: #db2777; }
+
+.hardware { border-top: 3.5px solid #059669 !important; }
+.hardware .card-icon { color: #059669; }
+
+.queries  { border-top: 3.5px solid #475569 !important; }
+.queries .card-icon  { color: #475569; }

@@ -1,0 +1,102 @@
+/* NAMESPACE EVERYTHING UNDER .query-ui */
+.query-ui {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px 10px 60px;
+    font-family: inherit;
+}
+
+/* Title */
+.query-ui-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1f1f1f;
+}
+
+/* Wrapper */
+.query-ui-wrapper {
+    background: #ffffff;
+    padding: 28px;
+    border-radius: 14px;
+    border: 1px solid #e3e6eb;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+/* Field block */
+.query-ui-field {
+    margin-bottom: 22px;
+}
+
+/* Labels */
+.query-ui-label {
+    display: block;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 6px;
+    font-size: 15px;
+}
+
+/* Selects */
+.query-ui-select {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #cfd6e2;
+    background: #f8f9fb;
+    font-size: 16px;
+    color: #333;
+    transition: 0.2s ease;
+}
+
+.query-ui-select:focus {
+    border-color: #6a9bff;
+    box-shadow: 0 0 0 3px rgba(106, 155, 255, 0.25);
+    outline: none;
+}
+
+.query-ui-select:disabled {
+    background: #e8ecf2;
+    color: #888;
+}
+
+/* Device info panel */
+.query-ui-device {
+    margin-top: 30px;
+}
+
+/* Card */
+.query-ui-card {
+    border: 1px solid #e3e6eb;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+}
+
+.query-ui-card-header {
+    padding: 14px 18px;
+    font-weight: 700;
+    background: #f1f3f6;
+    border-bottom: 1px solid #e3e6eb;
+}
+
+.query-ui-card-body {
+    padding: 18px;
+}
+
+/* Table */
+.query-ui-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.query-ui-table th,
+.query-ui-table td {
+    padding: 10px 12px;
+    border: 1px solid #e3e6eb;
+}
+
+.query-ui-table th {
+    width: 160px;
+    background: #f7f8fa;
+    font-weight: 600;
+}

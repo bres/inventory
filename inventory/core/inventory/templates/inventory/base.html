@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'inventory/css/base.css' %}">
+</head>
+
+<body class="custom-bg bg-body-tertiary">
+
+    <!--Top bar-->
+    <div class="topbar-bg bg-body-secondary">
+        <div class="container-xxl">
+            <p class="my-0 py-1 small">Welcome George Bres</p>
+        </div>
+    </div>
+
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-xl navbar-light bg-light border-bottom">
+        <div class="container-xxl">
+            <a class="navbar-brand text-secondary" href="{% url 'dashboard' %}">
+                <h1 class="display-6">Inventory</h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav"
+                aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end align-center" id="main-nav">
+                <ul class="navbar-nav">
+
+                    <li class="nav-item dropdown mx-2">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Spatial</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item rounded-2 px-3 py-2 small"
+                                    href="{% url 'cities-list' %}">Cities</a></li>
+                            <li><a class="dropdown-item rounded-2 px-3 py-2 small"
+                                    href="{% url 'areas-list' %}">Areas</a></li>
+                            <li><a class="dropdown-item rounded-2 px-3 py-2 small"
+                                    href="{% url 'buildings-list' %}">Buildings</a></li>
+                            <li><a class="dropdown-item rounded-2 px-3 py-2 small"
+                                    href="{% url 'floors-list' %}">Floors</a></li>
+                            <li><a class="dropdown-item rounded-2 px-3 py-2 small"
+                                    href="{% url 'rooms-list' %}">Rooms</a></li>
+                            <li><a class="dropdown-item rounded-2 px-3 py-2 small"
+                                    href="{% url 'spaces-list' %}">Spaces</a></li>
+                            <li><a class="dropdown-item rounded-2 px-3 py-2 small"
+                                    href="{% url 'sockets-list' %}">Sockets</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown mx-2">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Organic</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item rounded-2 px-3 py-2 small"
+                                    href="{% url 'general-directorates-list' %}">General directorate</a></li>
+                            <li><a class="dropdown-item rounded-2 px-3 py-2 small"
+                                    href="{% url 'directorates-list' %}">Directorate</a></li>
+                            <li><a class="dropdown-item rounded-2 px-3 py-2 small"
+                                    href="{% url 'departments-list' %}">Department</a></li>
+                            <li><a class="dropdown-item rounded-2 px-3 py-2 small"
+                                    href="{% url 'offices-list' %}">Office</a></li>
+                            <li><a class="dropdown-item rounded-2 px-3 py-2 small"
+                                    href="{% url 'users-list' %}">Users</a></li>
+                            <li><a class="dropdown-item rounded-2 px-3 py-2 small"
+                                    href="{% url 'assignments-list' %}">Assignments</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown mx-2">
+                        <a class="nav-link dropdown-toggle" href="#" role="button"
+                            data-bs-toggle="dropdown">Hardware</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item rounded-2 px-3 py-2 small"
+                                    href="{% url 'desktops-list' %}">Desktop computers</a></li>
+                            <li><a class="dropdown-item rounded-2 px-3 py-2 small" href="{% url 'allInOnes-list' %}">All
+                                    In ones computers</a></li>
+                            <li><a class="dropdown-item rounded-2 px-3 py-2 small"
+                                    href="{% url 'laptops-list' %}">Laptops</a></li>
+                            <li><a class="dropdown-item rounded-2 px-3 py-2 small"
+                                    href="{% url 'printers-list' %}">Printers</a></li>
+                            <li><a class="dropdown-item rounded-2 px-3 py-2 small"
+                                    href="{% url 'upses-list' %}">Upses</a></li>
+                            <li><a class="dropdown-item rounded-2 px-3 py-2 small"
+                                    href="{% url 'peripherals-list' %}">Peripherals</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item mx-2">
+                        <a href="{% url 'map' %}" class="nav-link">Map</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a href="{% url 'queries-list' %}" class="nav-link">Queries</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a href="#pricing" class="nav-link">Export</a>
+                    </li>
+                </ul>
+
+                <form class="d-flex ms-2" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                    <button class="btn btn-secondary" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-xxl">
+        <div class="wrapper">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Masonry -->
+<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script>
+  var masonry = new Masonry('.row', {
+    percentPosition: true
+  });
+</script>
+</body>
+
+</html>

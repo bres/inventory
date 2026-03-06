@@ -1,0 +1,232 @@
+{% extends 'inventory/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+  <!-- Top Navbar -->
+  <nav class="navbar bg-white border shadow-sm sticky-top px-4 mb-4 rounded-3 z-1">
+    <div class="d-flex align-items-center gap-3">
+
+      <i class="bi bi-grid text-warning fs-2"></i>
+
+      <div class="d-flex flex-column lh-sm">
+        <span class="fw-semibold text-dark">Common Areas</span>
+        <span class="text-muted small">Spatial Inventory</span>
+      </div>
+
+      <div class="vr"></div>
+
+      <div class="d-flex align-items-center gap-2">
+        <span class="badge bg-light text-dark border rounded-5 px-3 py-2">Total: {{ common_areas|length }}</span>
+      </div>
+
+    </div>
+
+    <div class="d-flex align-items-center gap-2 ms-auto">
+
+      <div class="dropdown">
+        <button class="btn btn-sm btn-light border dropdown-toggle" data-bs-toggle="dropdown">
+          <i class="bi bi-download me-1"></i> Export
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item"><i class="bi bi-file-pdf text-danger me-2"></i>PDF</a></li>
+          <li><a class="dropdown-item"><i class="bi bi-file-earmark-excel text-success me-2"></i>Excel</a></li>
+          <li><a class="dropdown-item"><i class="bi bi-file-earmark-csv text-primary me-2"></i>CSV</a></li>
+        </ul>
+      </div>
+
+      <a href="#" class="btn btn-sm btn-light border d-flex align-items-center gap-2 px-3">
+        <i class="bi bi-plus-lg"></i>
+        <span class="small fw-semibold">Add Common Area</span>
+      </a>
+
+      <button class="btn btn-sm btn-light border">
+        <i class="bi bi-funnel"></i>
+      </button>
+
+    </div>
+  </nav>
+
+
+  <!-- Results + View Toggle -->
+  <div class="d-flex justify-content-between align-items-center px-3 mb-3">
+    <span class="text-muted small">Showing {{ common_areas|length }} common areas</span>
+    <div class="btn-group btn-group-sm">
+      <button class="btn btn-light border active"><i class="bi bi-grid-3x3-gap-fill"></i></button>
+      <button class="btn btn-light border"><i class="bi bi-list-ul"></i></button>
+    </div>
+  </div>
+
+
+  <!-- Cards -->
+  <div class="px-3">
+    <div class="row g-4" data-masonry='{"percentPosition": true, "horizontalOrder": true}'>
+
+      {% for common_area in common_areas %}
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="card h-100 shadow-sm rounded-4 overflow-hidden card-hover border-top border-warning">
+
+          <!-- Card Header -->
+          <div class="card-header bg-transparent border-0 pt-3 pb-1 px-3">
+
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="badge bg-secondary rounded-2 px-3 py-2">#{{ forloop.counter|stringformat:"d" }}</span>
+              <span class="badge {% if common_area.area_type == 'corridor' %}bg-primary-subtle text-primary{% elif common_area.area_type == 'lobby' %}bg-success-subtle text-success{% elif common_area.area_type == 'server_room' %}bg-danger-subtle text-danger{% else %}bg-secondary-subtle text-secondary{% endif %} px-3 py-2 rounded-2 fw-normal">
+                <i class="bi {% if common_area.area_type == 'corridor' %}bi-sign-turn-right{% elif common_area.area_type == 'lobby' %}bi-door-open{% elif common_area.area_type == 'server_room' %}bi-server{% else %}bi-grid{% endif %} me-1"></i>
+                {{ common_area.get_area_type_display }}
+              </span>
+            </div>
+
+            <div class="d-flex align-items-center gap-2">
+              <div class="bg-light rounded-2 p-2">
+                <i class="bi {% if common_area.area_type == 'corridor' %}bi-sign-turn-right{% elif common_area.area_type == 'lobby' %}bi-door-open{% elif common_area.area_type == 'server_room' %}bi-server{% else %}bi-grid{% endif %} text-secondary fs-5"></i>
+              </div>
+              <div>
+                <span class="fw-bold text-dark">{{ common_area.name|capfirst }}</span>
+                <span class="text-muted small d-block"><i class="bi bi-layers me-1"></i>Floor {{ common_area.floor.floor_number }} · {{ common_area.floor.building.name|capfirst }}</span>
+                <span class="text-muted small d-block"><i class="bi bi-geo-alt me-1"></i>{{ common_area.floor.building.area.city.name|capfirst }} · {{ common_area.floor.building.area.name|capfirst }}</span>
+              </div>
+            </div>
+
+          </div>
+
+
+          <!-- Stats -->
+          <div class="card-body pt-2 pb-2 px-3">
+            <div class="row g-1">
+              <div class="col-6">
+                <div class="bg-light rounded p-2 text-center">
+                  <span class="fw-semibold small d-block">{{ common_area.floor.floor_number }}</span>
+                  <span class="text-muted small">Floor</span>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="bg-light rounded p-2 text-center">
+                  <span class="fw-semibold small d-block">{{ common_area.get_area_type_display }}</span>
+                  <span class="text-muted small">Type</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Devices -->
+          <div class="px-3 pt-1 pb-2">
+
+            <span class="text-muted opacity-75 section-label d-block mb-1">Devices</span>
+
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-pc-display text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">Desktops</span>
+                <span class="badge bg-primary-subtle text-primary">{{ common_area.desktops_count }}</span>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-display text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">All-in-Ones</span>
+                <span class="badge bg-primary-subtle text-primary">{{ common_area.allinones_count }}</span>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-laptop text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">Laptops</span>
+                <span class="badge bg-primary-subtle text-primary">{{ common_area.laptops_count }}</span>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-server text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">Servers</span>
+                <span class="badge bg-primary-subtle text-primary">{{ common_area.servers_count }}</span>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-printer text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">Printers</span>
+                <span class="badge bg-primary-subtle text-primary">{{ common_area.printers_count }}</span>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-battery-charging text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">UPS</span>
+                <span class="badge bg-primary-subtle text-primary">{{ common_area.ups_count }}</span>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-hdd-network text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">Switches</span>
+                <span class="badge bg-primary-subtle text-primary">{{ common_area.switches_count }}</span>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-telephone text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">Phones</span>
+                <span class="badge bg-primary-subtle text-primary">{{ common_area.phones_count }}</span>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-keyboard text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">Peripherals</span>
+                <span class="badge bg-primary-subtle text-primary">{{ common_area.peripherals_count }}</span>
+              </div>
+            </div>
+
+          </div>
+
+
+          <!-- Footer -->
+          <div class="d-flex justify-content-between align-items-center px-3 py-2 border-top">
+            <div class="d-flex align-items-center gap-1 small text-muted">
+              <i class="bi bi-geo-alt-fill text-secondary"></i>
+              {{ common_area.floor.building.area.city.name|capfirst }} · {{ common_area.floor.building.name|capfirst }} · Floor {{ common_area.floor.floor_number }}
+            </div>
+            <div class="d-flex gap-2">
+              <button class="btn btn-sm btn-outline-info border-1"><i class="bi bi-pencil"></i></button>
+              <button class="btn btn-sm btn-outline-warning border-1"><i class="bi bi-trash"></i></button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
+
+<style>
+.card-hover {
+  transition: transform .2s ease-in-out, box-shadow .2s ease-in-out;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+}
+.section-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.03em;
+}
+</style>
+
+{% endblock %}
