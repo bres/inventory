@@ -4,7 +4,7 @@
   <!-- Header with subtle gradient -->
   <div class="d-flex align-items-center mb-4">
     <div class="bg-light bg-gradient rounded-3 p-3 me-3 shadow-sm">
-      <i class="bi bi-grid-3x3-gap-fill text-secondary fs-4"></i>
+      <i class="bi bi-grid-3x3-gap-fill text-primary fs-4"></i>
     </div>
     <div>
       <h3 class="mb-1 fw-semibold">System Inventory</h3>
@@ -12,20 +12,20 @@
     </div>
   </div>
 
-  <!-- Section Headers -->
+  <!-- Section Headers - Happy colors -->
   <div class="row mb-3">
     <div class="col-12">
       <div class="d-flex gap-4">
-        <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill border border-primary border-opacity-25">
+        <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill border border-primary">
           <i class="bi bi-geo-alt-fill me-1"></i> Spatial
         </span>
-        <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill border border-success border-opacity-25">
+        <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill border border-success">
           <i class="bi bi-diagram-3-fill me-1"></i> Organic
         </span>
-        <span class="badge bg-warning bg-opacity-10 text-warning px-3 py-2 rounded-pill border border-warning border-opacity-25">
+        <span class="badge bg-warning bg-opacity-10 text-warning px-3 py-2 rounded-pill border border-warning">
           <i class="bi bi-pc-display me-1"></i> Hardware
         </span>
-        <span class="badge bg-info bg-opacity-10 text-info px-3 py-2 rounded-pill border border-info border-opacity-25">
+        <span class="badge bg-info bg-opacity-10 text-info px-3 py-2 rounded-pill border border-info">
           <i class="bi bi-search me-1"></i> Queries
         </span>
       </div>
@@ -34,10 +34,10 @@
 
   <!-- Dashboard Cards Grid - 4 Rows x 6 Columns -->
   <div class="row g-3">
-    <!-- ROW 1: First 6 Spatial Items -->
+    <!-- ROW 1: First 6 Spatial Items (Blue) -->
     <div class="col-6 col-md-4 col-lg-2">
       <a href="{% url 'cities-list' %}" class="text-decoration-none">
-        <div class="card h-100 border hover-shadow transition-all">
+        <div class="card h-100 shadow-sm border-0 border-top border-3 border-primary hover-shadow transition-all">
           <div class="card-body text-center p-3">
             <i class="bi bi-geo-alt-fill text-primary mb-2" style="font-size: 2rem;"></i>
             <h6 class="fw-semibold text-secondary mb-1">Cities</h6>
@@ -49,7 +49,7 @@
 
     <div class="col-6 col-md-4 col-lg-2">
       <a href="{% url 'areas-list' %}" class="text-decoration-none">
-        <div class="card h-100 border hover-shadow transition-all">
+        <div class="card h-100 shadow-sm border-0 border-top border-3 border-primary hover-shadow transition-all">
           <div class="card-body text-center p-3">
             <i class="bi bi-map-fill text-primary mb-2" style="font-size: 2rem;"></i>
             <h6 class="fw-semibold text-secondary mb-1">Areas</h6>
@@ -61,7 +61,7 @@
 
     <div class="col-6 col-md-4 col-lg-2">
       <a href="{% url 'buildings-list' %}" class="text-decoration-none">
-        <div class="card h-100 border hover-shadow transition-all">
+        <div class="card h-100 shadow-sm border-0 border-top border-3 border-primary hover-shadow transition-all">
           <div class="card-body text-center p-3">
             <i class="bi bi-building text-primary mb-2" style="font-size: 2rem;"></i>
             <h6 class="fw-semibold text-secondary mb-1">Buildings</h6>
@@ -73,7 +73,7 @@
 
     <div class="col-6 col-md-4 col-lg-2">
       <a href="{% url 'floors-list' %}" class="text-decoration-none">
-        <div class="card h-100 border hover-shadow transition-all">
+        <div class="card h-100 shadow-sm border-0 border-top border-3 border-primary hover-shadow transition-all">
           <div class="card-body text-center p-3">
             <i class="bi bi-layers-fill text-primary mb-2" style="font-size: 2rem;"></i>
             <h6 class="fw-semibold text-secondary mb-1">Floors</h6>
@@ -85,7 +85,7 @@
 
     <div class="col-6 col-md-4 col-lg-2">
       <a href="{% url 'common-areas-list' %}" class="text-decoration-none">
-        <div class="card h-100 border hover-shadow transition-all">
+        <div class="card h-100 shadow-sm border-0 border-top border-3 border-primary hover-shadow transition-all">
           <div class="card-body text-center p-3">
             <i class="bi bi-sign-turn-right text-primary mb-2" style="font-size: 2rem;"></i>
             <h6 class="fw-semibold text-secondary mb-1">Common Areas</h6>
@@ -97,7 +97,7 @@
 
     <div class="col-6 col-md-4 col-lg-2">
       <a href="{% url 'rooms-list' %}" class="text-decoration-none">
-        <div class="card h-100 border hover-shadow transition-all">
+        <div class="card h-100 shadow-sm border-0 border-top border-3 border-primary hover-shadow transition-all">
           <div class="card-body text-center p-3">
             <i class="bi bi-door-open-fill text-primary mb-2" style="font-size: 2rem;"></i>
             <h6 class="fw-semibold text-secondary mb-1">Rooms</h6>
@@ -107,10 +107,10 @@
       </a>
     </div>
 
-    <!-- ROW 2: Remaining 2 Spatial + First 4 Organic -->
+    <!-- ROW 2: Remaining 2 Spatial (Blue) + First 4 Organic (Green) -->
     <div class="col-6 col-md-4 col-lg-2">
       <a href="{% url 'spaces-list' %}" class="text-decoration-none">
-        <div class="card h-100 border hover-shadow transition-all">
+        <div class="card h-100 shadow-sm border-0 border-top border-3 border-primary hover-shadow transition-all">
           <div class="card-body text-center p-3">
             <i class="bi bi-grid-3x3-gap-fill text-primary mb-2" style="font-size: 2rem;"></i>
             <h6 class="fw-semibold text-secondary mb-1">Spaces</h6>
@@ -122,7 +122,7 @@
 
     <div class="col-6 col-md-4 col-lg-2">
       <a href="{% url 'sockets-list' %}" class="text-decoration-none">
-        <div class="card h-100 border hover-shadow transition-all">
+        <div class="card h-100 shadow-sm border-0 border-top border-3 border-primary hover-shadow transition-all">
           <div class="card-body text-center p-3">
             <i class="bi bi-ethernet text-primary mb-2" style="font-size: 2rem;"></i>
             <h6 class="fw-semibold text-secondary mb-1">Sockets</h6>
@@ -134,7 +134,7 @@
 
     <div class="col-6 col-md-4 col-lg-2">
       <a href="{% url 'general-directorates-list' %}" class="text-decoration-none">
-        <div class="card h-100 border hover-shadow transition-all">
+        <div class="card h-100 shadow-sm border-0 border-top border-3 border-success hover-shadow transition-all">
           <div class="card-body text-center p-3">
             <i class="bi bi-diagram-3-fill text-success mb-2" style="font-size: 2rem;"></i>
             <h6 class="fw-semibold text-secondary mb-1">Gen. Dir.</h6>
@@ -146,7 +146,7 @@
 
     <div class="col-6 col-md-4 col-lg-2">
       <a href="{% url 'directorates-list' %}" class="text-decoration-none">
-        <div class="card h-100 border hover-shadow transition-all">
+        <div class="card h-100 shadow-sm border-0 border-top border-3 border-success hover-shadow transition-all">
           <div class="card-body text-center p-3">
             <i class="bi bi-diagram-2-fill text-success mb-2" style="font-size: 2rem;"></i>
             <h6 class="fw-semibold text-secondary mb-1">Directorates</h6>
@@ -158,7 +158,7 @@
 
     <div class="col-6 col-md-4 col-lg-2">
       <a href="{% url 'departments-list' %}" class="text-decoration-none">
-        <div class="card h-100 border hover-shadow transition-all">
+        <div class="card h-100 shadow-sm border-0 border-top border-3 border-success hover-shadow transition-all">
           <div class="card-body text-center p-3">
             <i class="bi bi-diagram-3 text-success mb-2" style="font-size: 2rem;"></i>
             <h6 class="fw-semibold text-secondary mb-1">Departments</h6>
@@ -170,7 +170,7 @@
 
     <div class="col-6 col-md-4 col-lg-2">
       <a href="{% url 'offices-list' %}" class="text-decoration-none">
-        <div class="card h-100 border hover-shadow transition-all">
+        <div class="card h-100 shadow-sm border-0 border-top border-3 border-success hover-shadow transition-all">
           <div class="card-body text-center p-3">
             <i class="bi bi-briefcase-fill text-success mb-2" style="font-size: 2rem;"></i>
             <h6 class="fw-semibold text-secondary mb-1">Offices</h6>
@@ -180,10 +180,10 @@
       </a>
     </div>
 
-    <!-- ROW 3: Remaining 2 Organic + First 4 Hardware -->
+    <!-- ROW 3: Remaining 2 Organic (Green) + First 4 Hardware (Orange) -->
     <div class="col-6 col-md-4 col-lg-2">
       <a href="{% url 'users-list' %}" class="text-decoration-none">
-        <div class="card h-100 border hover-shadow transition-all">
+        <div class="card h-100 shadow-sm border-0 border-top border-3 border-success hover-shadow transition-all">
           <div class="card-body text-center p-3">
             <i class="bi bi-people-fill text-success mb-2" style="font-size: 2rem;"></i>
             <h6 class="fw-semibold text-secondary mb-1">Users</h6>
@@ -195,7 +195,7 @@
 
     <div class="col-6 col-md-4 col-lg-2">
       <a href="{% url 'assignments-list' %}" class="text-decoration-none">
-        <div class="card h-100 border hover-shadow transition-all">
+        <div class="card h-100 shadow-sm border-0 border-top border-3 border-success hover-shadow transition-all">
           <div class="card-body text-center p-3">
             <i class="bi bi-clipboard-check text-success mb-2" style="font-size: 2rem;"></i>
             <h6 class="fw-semibold text-secondary mb-1">Assignments</h6>
@@ -207,7 +207,7 @@
 
     <div class="col-6 col-md-4 col-lg-2">
       <a href="{% url 'desktops-list' %}" class="text-decoration-none">
-        <div class="card h-100 border hover-shadow transition-all">
+        <div class="card h-100 shadow-sm border-0 border-top border-3 border-warning hover-shadow transition-all">
           <div class="card-body text-center p-3">
             <i class="bi bi-pc-display text-warning mb-2" style="font-size: 2rem;"></i>
             <h6 class="fw-semibold text-secondary mb-1">Desktops</h6>
@@ -219,7 +219,7 @@
 
     <div class="col-6 col-md-4 col-lg-2">
       <a href="{% url 'allInOnes-list' %}" class="text-decoration-none">
-        <div class="card h-100 border hover-shadow transition-all">
+        <div class="card h-100 shadow-sm border-0 border-top border-3 border-warning hover-shadow transition-all">
           <div class="card-body text-center p-3">
             <i class="bi bi-display text-warning mb-2" style="font-size: 2rem;"></i>
             <h6 class="fw-semibold text-secondary mb-1">All-in-Ones</h6>
@@ -231,7 +231,7 @@
 
     <div class="col-6 col-md-4 col-lg-2">
       <a href="{% url 'laptops-list' %}" class="text-decoration-none">
-        <div class="card h-100 border hover-shadow transition-all">
+        <div class="card h-100 shadow-sm border-0 border-top border-3 border-warning hover-shadow transition-all">
           <div class="card-body text-center p-3">
             <i class="bi bi-laptop text-warning mb-2" style="font-size: 2rem;"></i>
             <h6 class="fw-semibold text-secondary mb-1">Laptops</h6>
@@ -243,7 +243,7 @@
 
     <div class="col-6 col-md-4 col-lg-2">
       <a href="{% url 'servers-list' %}" class="text-decoration-none">
-        <div class="card h-100 border hover-shadow transition-all">
+        <div class="card h-100 shadow-sm border-0 border-top border-3 border-warning hover-shadow transition-all">
           <div class="card-body text-center p-3">
             <i class="bi bi-hdd-rack-fill text-warning mb-2" style="font-size: 2rem;"></i>
             <h6 class="fw-semibold text-secondary mb-1">Servers</h6>
@@ -253,10 +253,10 @@
       </a>
     </div>
 
-    <!-- ROW 4: Remaining 5 Hardware + Queries -->
+    <!-- ROW 4: Remaining 5 Hardware (Orange) + Queries (Cyan) -->
     <div class="col-6 col-md-4 col-lg-2">
       <a href="{% url 'printers-list' %}" class="text-decoration-none">
-        <div class="card h-100 border hover-shadow transition-all">
+        <div class="card h-100 shadow-sm border-0 border-top border-3 border-warning hover-shadow transition-all">
           <div class="card-body text-center p-3">
             <i class="bi bi-printer-fill text-warning mb-2" style="font-size: 2rem;"></i>
             <h6 class="fw-semibold text-secondary mb-1">Printers</h6>
@@ -268,7 +268,7 @@
 
     <div class="col-6 col-md-4 col-lg-2">
       <a href="{% url 'switches-list' %}" class="text-decoration-none">
-        <div class="card h-100 border hover-shadow transition-all">
+        <div class="card h-100 shadow-sm border-0 border-top border-3 border-warning hover-shadow transition-all">
           <div class="card-body text-center p-3">
             <i class="bi bi-hdd-rack text-warning mb-2" style="font-size: 2rem;"></i>
             <h6 class="fw-semibold text-secondary mb-1">Switches</h6>
@@ -280,7 +280,7 @@
 
     <div class="col-6 col-md-4 col-lg-2">
       <a href="{% url 'phones-list' %}" class="text-decoration-none">
-        <div class="card h-100 border hover-shadow transition-all">
+        <div class="card h-100 shadow-sm border-0 border-top border-3 border-warning hover-shadow transition-all">
           <div class="card-body text-center p-3">
             <i class="bi bi-telephone text-warning mb-2" style="font-size: 2rem;"></i>
             <h6 class="fw-semibold text-secondary mb-1">Phones</h6>
@@ -292,7 +292,7 @@
 
     <div class="col-6 col-md-4 col-lg-2">
       <a href="{% url 'upses-list' %}" class="text-decoration-none">
-        <div class="card h-100 border hover-shadow transition-all">
+        <div class="card h-100 shadow-sm border-0 border-top border-3 border-warning hover-shadow transition-all">
           <div class="card-body text-center p-3">
             <i class="bi bi-battery-charging text-warning mb-2" style="font-size: 2rem;"></i>
             <h6 class="fw-semibold text-secondary mb-1">UPS Units</h6>
@@ -304,7 +304,7 @@
 
     <div class="col-6 col-md-4 col-lg-2">
       <a href="{% url 'peripherals-list' %}" class="text-decoration-none">
-        <div class="card h-100 border hover-shadow transition-all">
+        <div class="card h-100 shadow-sm border-0 border-top border-3 border-warning hover-shadow transition-all">
           <div class="card-body text-center p-3">
             <i class="bi bi-usb-symbol text-warning mb-2" style="font-size: 2rem;"></i>
             <h6 class="fw-semibold text-secondary mb-1">Peripherals</h6>
@@ -316,7 +316,7 @@
 
     <div class="col-6 col-md-4 col-lg-2">
       <a href="{% url 'queries-list' %}" class="text-decoration-none">
-        <div class="card h-100 border hover-shadow transition-all">
+        <div class="card h-100 shadow-sm border-0 border-top border-3 border-info hover-shadow transition-all">
           <div class="card-body text-center p-3">
             <i class="bi bi-search text-info mb-2" style="font-size: 2rem;"></i>
             <h6 class="fw-semibold text-secondary mb-1">Queries</h6>
@@ -338,9 +338,6 @@
   }
   .transition-all {
     transition: all 0.2s ease-in-out;
-  }
-  .bg-opacity-10 {
-    --bs-bg-opacity: 0.1;
   }
   .card {
     border-radius: 0.5rem;

@@ -5,121 +5,181 @@
 
 <div class="container-fluid">
 
-  <!-- Affixed Navigation Bar -->
-  <nav class="navbar bg-white border shadow-sm sticky-top px-4 mb-4 rounded-3" style="z-index: 900;">
+  <!-- Top Navbar -->
+  <nav class="navbar bg-white border shadow-sm sticky-top px-4 mb-4 rounded-3 z-1">
     <div class="d-flex align-items-center gap-3">
-      <i class="bi bi-building fs-2" style="color:#6d28d9;"></i>
+
+      <i class="bi bi-building text-warning fs-2"></i>
+
       <div class="d-flex flex-column lh-sm">
         <span class="fw-semibold text-dark">Offices</span>
         <span class="text-muted small">Hardware Inventory</span>
       </div>
-      <span
-        class="d-flex align-items-center justify-content-center rounded-circle bg-light border text-secondary fw-bold fs-6"
-        style="width: 36px; height: 36px;">
-        {{ offices|length }}
-      </span>
+
+      <div class="vr"></div>
+
+      <div class="d-flex align-items-center gap-2">
+        <span class="badge bg-light text-dark border rounded-5 px-3 py-2">Total: {{ offices|length }}</span>
+      </div>
+
     </div>
 
     <div class="d-flex align-items-center gap-2 ms-auto">
-      <a href="#" class="btn btn-sm btn-light border text-secondary d-flex align-items-center gap-1">
-        <i class="bi bi-file-pdf"></i>
-        <span class="small">PDF</span>
-      </a>
-      <a href="#" class="btn btn-sm btn-light border text-secondary d-flex align-items-center gap-1">
-        <i class="bi bi-file-earmark-csv"></i>
-        <span class="small">CSV</span>
-      </a>
 
-      <div class="vr mx-1"></div>
+      <div class="dropdown">
+        <button class="btn btn-sm btn-light border dropdown-toggle" data-bs-toggle="dropdown">
+          <i class="bi bi-download me-1"></i> Export
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item"><i class="bi bi-file-pdf text-danger me-2"></i>PDF</a></li>
+          <li><a class="dropdown-item"><i class="bi bi-file-earmark-excel text-success me-2"></i>Excel</a></li>
+          <li><a class="dropdown-item"><i class="bi bi-file-earmark-csv text-primary me-2"></i>CSV</a></li>
+        </ul>
+      </div>
 
-      <a href="#" class="btn btn-sm btn-light border text-secondary rounded d-flex align-items-center gap-2 px-3">
+      <a href="#" class="btn btn-sm btn-light border d-flex align-items-center gap-2 px-3">
         <i class="bi bi-plus-lg"></i>
-        <span class="small fw-semibold">Add New</span>
+        <span class="small fw-semibold">Add Office</span>
       </a>
+
+      <button class="btn btn-sm btn-light border">
+        <i class="bi bi-funnel"></i>
+      </button>
+
     </div>
   </nav>
 
-  <!-- Cards Grid -->
+
+  <!-- Results + View Toggle -->
+  <div class="d-flex justify-content-between align-items-center px-3 mb-3">
+    <span class="text-muted small">Showing {{ offices|length }} offices</span>
+    <div class="btn-group btn-group-sm">
+      <button class="btn btn-light border active"><i class="bi bi-grid-3x3-gap-fill"></i></button>
+      <button class="btn btn-light border"><i class="bi bi-list-ul"></i></button>
+    </div>
+  </div>
+
+
+  <!-- Cards -->
   <div class="px-3">
-    <div class="row g-3" data-masonry='{"percentPosition": true, "horizontalOrder": true}'>
+    <div class="row g-4" data-masonry='{"percentPosition": true, "horizontalOrder": true}'>
+
       {% for office in offices %}
       <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="card h-100 shadow-sm rounded-4 overflow-hidden card-hover border-top border-warning">
 
-        <div class="card shadow-sm rounded-3 overflow-hidden"
-          style="border-top: 5px solid #ddd6fe;">
+          <!-- Card Header -->
+          <div class="card-header bg-transparent border-0 pt-3 pb-1 px-3">
 
-          <!-- Top Bar -->
-          <div class="card-body pb-2">
             <div class="d-flex justify-content-between align-items-center mb-2">
-              <span class="badge bg-secondary">#{{ forloop.counter|stringformat:"04d" }}</span>
-              <span class="badge fw-normal" style="background-color:#f5f3ff; color:#6d28d9;">Office</span>
+              <span class="badge bg-secondary rounded-2 px-3 py-2">#{{ forloop.counter|stringformat:"d" }}</span>
+              <span class="badge bg-secondary-subtle text-secondary px-3 py-2 rounded-2 fw-normal">
+                <i class="bi bi-building me-1"></i>Office
+              </span>
             </div>
 
-            <h6 class="fw-bold fs-5 mb-1">
-              <i class="bi bi-building me-1" style="color:#6d28d9;"></i>
-              {{ office.name|capfirst }}
-            </h6>
+            <div class="d-flex align-items-center gap-2">
+              <div class="bg-light rounded-2 p-2">
+                <i class="bi bi-building text-secondary fs-5"></i>
+              </div>
+              <div>
+                <span class="fw-bold text-dark">{{ office.name|capfirst }}</span>
+                <span class="text-muted small d-block"><i class="bi bi-folder2-open me-1"></i>{{ office.department.name|capfirst }}</span>
+                <span class="text-muted small d-block"><i class="bi bi-diagram-2 me-1"></i>{{ office.department.directorate.name|capfirst }}</span>
+              </div>
+            </div>
 
-            <div class="small text-muted d-flex align-items-center gap-1">
-              <i class="bi bi-folder2-open"></i>
-              {{ office.department.name|capfirst }}
-            </div>
-            <div class="small text-muted d-flex align-items-center gap-1">
-              <i class="bi bi-diagram-2"></i>
-              {{ office.department.directorate.name|capfirst }}
-            </div>
-            <div class="small text-muted d-flex align-items-center gap-1">
-              <i class="bi bi-bank"></i>
-              {{ office.department.directorate.general_directorate.name|capfirst }}
+          </div>
+
+
+          <!-- Stats -->
+          <div class="card-body pt-2 pb-2 px-3">
+            <div class="row g-1">
+              <div class="col-12">
+                <div class="bg-light rounded p-2 text-center">
+                  <span class="fw-semibold small d-block">{{ office.users_count }}</span>
+                  <span class="text-muted small">Users</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <!-- Stats Bar -->
-          <div class="d-flex justify-content-around align-items-center bg-light py-2 border-top border-bottom">
-            <div class="text-center">
-              <div class="fw-bold">{{ office.users_count }}</div>
-              <div class="text-muted small">Users</div>
+
+          <!-- Organisation -->
+          <div class="px-3 pt-1 pb-2">
+
+            <span class="text-muted opacity-75 section-label d-block mb-1">Organisation</span>
+
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-bank text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">General Directorate</span>
+                <span class="text-dark small">{{ office.department.directorate.general_directorate.name|capfirst }}</span>
+              </div>
             </div>
+
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-diagram-2 text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">Directorate</span>
+                <span class="text-dark small">{{ office.department.directorate.name|capfirst }}</span>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-folder2-open text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">Department</span>
+                <span class="text-dark small">{{ office.department.name|capfirst }}</span>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-people text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">Users</span>
+                <span class="badge bg-primary-subtle text-primary">{{ office.users_count }}</span>
+              </div>
+            </div>
+
           </div>
 
-          <!-- Body -->
-          <div class="card-body py-2">
-            <p class="text-uppercase text-muted fw-bold mb-1 small" style="letter-spacing:.08em;">Organisation</p>
-
-            <div class="d-flex justify-content-between align-items-center py-1">
-              <span class="text-muted d-flex align-items-center gap-2"><i class="bi bi-people"></i> Users</span>
-              <span class="badge bg-primary-subtle text-primary fw-semibold">{{ office.users_count }}</span>
-            </div>
-          </div>
 
           <!-- Footer -->
-          <div class="card-footer bg-light d-flex justify-content-between align-items-center py-2">
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb m-0 p-0 small">
-                <li class="breadcrumb-item">
-                  <a class="text-secondary text-decoration-none">{{ office.department.directorate.general_directorate.name|capfirst }}</a>
-                </li>
-                <li class="breadcrumb-item">
-                  <a class="text-secondary text-decoration-none">{{ office.department.directorate.name|capfirst }}</a>
-                </li>
-                <li class="breadcrumb-item">
-                  <a class="text-secondary text-decoration-none">{{ office.department.name|capfirst }}</a>
-                </li>
-                <li class="breadcrumb-item active">{{ office.name|capfirst }}</li>
-              </ol>
-            </nav>
+          <div class="d-flex justify-content-between align-items-center px-3 py-2 border-top">
+            <div class="d-flex align-items-center gap-1 small text-muted">
+              <i class="bi bi-geo-alt-fill text-secondary"></i>
+              {{ office.department.directorate.general_directorate.name|capfirst }} · {{ office.department.name|capfirst }} · {{ office.name|capfirst }}
+            </div>
             <div class="d-flex gap-2">
-              <button class="btn btn-sm btn-outline-primary rounded-2 py-1 px-2"><i class="bi bi-pencil"></i></button>
-              <button class="btn btn-sm btn-outline-danger rounded-2 py-1 px-2"><i class="bi bi-trash"></i></button>
+              <button class="btn btn-sm btn-outline-info border-1"><i class="bi bi-pencil"></i></button>
+              <button class="btn btn-sm btn-outline-warning border-1"><i class="bi bi-trash"></i></button>
             </div>
           </div>
 
         </div>
       </div>
       {% endfor %}
+
     </div>
   </div>
 
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
+
+<style>
+.card-hover {
+  transition: transform .2s ease-in-out, box-shadow .2s ease-in-out;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+}
+.section-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.03em;
+}
+</style>
 
 {% endblock %}

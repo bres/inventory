@@ -9,7 +9,7 @@
   <nav class="navbar bg-white border shadow-sm sticky-top px-4 mb-4 rounded-3 z-1">
     <div class="d-flex align-items-center gap-3">
 
-      <i class="bi bi-map text-warning fs-2"></i>
+      <i class="bi bi-map text-primary fs-2"></i>
 
       <div class="d-flex flex-column lh-sm">
         <span class="fw-semibold text-dark">Areas</span>
@@ -66,7 +66,8 @@
 
       {% for area in areas %}
       <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="card h-100 shadow-sm rounded-4 overflow-hidden card-hover border-top border-warning">
+        <!-- Only changed: Added border-top border-3 border-primary and kept hover-shadow transition-all classes -->
+        <div class="card h-100 shadow rounded-4 overflow-hidden card-hover border-top border-3 border-primary border-0 hover-shadow transition-all">
 
           <!-- Card Header -->
           <div class="card-header bg-transparent border-0 pt-3 pb-1 px-3">
@@ -224,6 +225,17 @@
 .section-label {
   font-size: 0.65rem;
   letter-spacing: 0.03em;
+}
+/* Added hover-shadow and transition-all classes from the dashboard */
+.hover-shadow {
+  transition: all 0.2s ease-in-out;
+}
+.hover-shadow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+.transition-all {
+  transition: all 0.2s ease-in-out;
 }
 </style>
 
