@@ -66,54 +66,47 @@
 
       {% for building in buildings %}
       <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="card h-100 shadow rounded-4 overflow-hidden card-hover border-top border-3 border-primary border-0">
+        <div class="card h-100 shadow rounded-4 overflow-hidden card-hover card-spatial">
 
-          <!-- Card Header -->
+          <!-- Card Header - SIMPLIFIED like cities template -->
           <div class="card-header bg-transparent border-0 pt-3 pb-1 px-3">
 
             <div class="d-flex justify-content-between align-items-center mb-2">
-              <span class="badge bg-secondary rounded-2 px-3 py-2">#{{ forloop.counter|stringformat:"d" }}</span>
-              <span class="badge bg-warning-subtle text-warning px-3 py-2 rounded-2 fw-normal">
-                <i class="bi bi-building me-1"></i>Building
-              </span>
+              <span class="badge bg-light text-dark border rounded-2 px-3 py-2">#{{ forloop.counter|stringformat:"d" }}</span>
             </div>
 
             <div class="d-flex align-items-center gap-2">
-              <div class="bg-light rounded-2 p-2">
-                <i class="bi bi-building text-secondary fs-5"></i>
-              </div>
+              <i class="bi bi-building text-primary fs-5"></i>
               <div>
                 <span class="fw-bold text-dark">{{ building.name|capfirst }}</span>
-                <span class="text-muted small d-block"><i class="bi bi-geo-alt me-1"></i>{{ building.area.city.name|capfirst }} · {{ building.area.name|capfirst }}</span>
-                {% if building.address %}
-                <span class="text-muted small d-block"><i class="bi bi-signpost me-1"></i>{{ building.address|capfirst }}</span>
-                {% endif %}
+                <span class="text-muted small d-block">{{ building.area.city.name|capfirst }} · {{ building.area.name|capfirst }}</span>
               </div>
             </div>
 
           </div>
 
 
-          <!-- Stats -->
+          <!-- Stats - 3-COLUMN layout like cities template -->
           <div class="card-body pt-2 pb-2 px-3">
             <div class="row g-1">
               <div class="col-6">
-                <div class="bg-light rounded p-2 text-center">
+                <div class="bg-light border rounded p-2 text-center">
                   <span class="fw-semibold small d-block">{{ building.floors_count }}</span>
                   <span class="text-muted small">Floors</span>
                 </div>
               </div>
               <div class="col-6">
-                <div class="bg-light rounded p-2 text-center">
+                <div class="bg-light border rounded p-2 text-center">
                   <span class="fw-semibold small d-block">{{ building.rooms_count }}</span>
                   <span class="text-muted small">Rooms</span>
                 </div>
               </div>
+            
             </div>
           </div>
 
 
-          <!-- Devices -->
+          <!-- Devices - EXACT categories as cities template -->
           <div class="px-3 pt-1 pb-2">
 
             <span class="text-muted opacity-75 section-label d-block mb-1">Devices</span>
@@ -122,7 +115,7 @@
               <i class="bi bi-pc-display text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Desktops</span>
-                <span class="badge bg-primary-subtle text-primary">{{ building.desktops_count }}</span>
+                <span class="badge bg-primary-subtle text-muted">{{ building.desktops_count }}</span>
               </div>
             </div>
 
@@ -130,7 +123,7 @@
               <i class="bi bi-display text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">All-in-Ones</span>
-                <span class="badge bg-primary-subtle text-primary">{{ building.allinones_count }}</span>
+                <span class="badge bg-primary-subtle text-muted">{{ building.allinones_count }}</span>
               </div>
             </div>
 
@@ -138,7 +131,7 @@
               <i class="bi bi-laptop text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Laptops</span>
-                <span class="badge bg-primary-subtle text-primary">{{ building.laptops_count }}</span>
+                <span class="badge bg-primary-subtle text-muted">{{ building.laptops_count }}</span>
               </div>
             </div>
 
@@ -146,7 +139,7 @@
               <i class="bi bi-server text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Servers</span>
-                <span class="badge bg-primary-subtle text-primary">{{ building.servers_count }}</span>
+                <span class="badge bg-primary-subtle text-muted">{{ building.servers_count }}</span>
               </div>
             </div>
 
@@ -154,7 +147,7 @@
               <i class="bi bi-printer text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Printers</span>
-                <span class="badge bg-primary-subtle text-primary">{{ building.printers_count }}</span>
+                <span class="badge bg-primary-subtle text-muted">{{ building.printers_count }}</span>
               </div>
             </div>
 
@@ -162,7 +155,7 @@
               <i class="bi bi-battery-charging text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">UPS</span>
-                <span class="badge bg-primary-subtle text-primary">{{ building.ups_count }}</span>
+                <span class="badge bg-primary-subtle text-muted">{{ building.ups_count }}</span>
               </div>
             </div>
 
@@ -170,7 +163,7 @@
               <i class="bi bi-hdd-network text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Switches</span>
-                <span class="badge bg-primary-subtle text-primary">{{ building.switches_count }}</span>
+                <span class="badge bg-primary-subtle text-muted">{{ building.switches_count }}</span>
               </div>
             </div>
 
@@ -178,7 +171,15 @@
               <i class="bi bi-telephone text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Phones</span>
-                <span class="badge bg-primary-subtle text-primary">{{ building.phones_count }}</span>
+                <span class="badge bg-primary-subtle text-muted">{{ building.phones_count }}</span>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-wifi text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">Access Points</span>
+                <span class="badge bg-primary-subtle text-muted">{{ building.accesspoints_count }}</span>
               </div>
             </div>
 
@@ -186,18 +187,18 @@
               <i class="bi bi-keyboard text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Peripherals</span>
-                <span class="badge bg-primary-subtle text-primary">{{ building.peripherals_count }}</span>
+                <span class="badge bg-primary-subtle text-muted">{{ building.peripherals_count }}</span>
               </div>
             </div>
 
           </div>
 
 
-          <!-- Footer -->
+          <!-- Footer - SIMPLIFIED like cities template -->
           <div class="d-flex justify-content-between align-items-center px-3 py-2 border-top">
             <div class="d-flex align-items-center gap-1 small text-muted">
-              <i class="bi bi-geo-alt-fill text-secondary"></i>
-              {{ building.area.city.name|capfirst }} · {{ building.area.name|capfirst }} · {{ building.name|capfirst }}
+              <i class="bi bi-building-fill text-secondary"></i>
+              {{ building.name|capfirst }}
             </div>
             <div class="d-flex gap-2">
               <button class="btn btn-sm btn-outline-info border-1"><i class="bi bi-pencil"></i></button>
@@ -228,6 +229,7 @@
   font-size: 0.65rem;
   letter-spacing: 0.03em;
 }
+
 </style>
 
 {% endblock %}

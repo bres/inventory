@@ -26,6 +26,7 @@ urlpatterns = [
     path('upses/', views.upses_list, name='upses-list'),
     path('printers/', views.printers_list, name='printers-list'),
     path('switches/', views.switches_list, name='switches-list'),
+    path('access-points/', views.access_points_list, name='access-points-list'),
     path('phones/', views.phones_list, name='phones-list'),
     path('queries/', views.queries_list, name='queries-list'),
     path('map/', views.map, name='map'),

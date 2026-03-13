@@ -66,13 +66,13 @@
 
       {% for socket in sockets %}
       <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="card h-100 shadow rounded-4 overflow-hidden card-hover border-top border-3 border-primary border-0 hover-shadow transition-all">
+        <div class="card h-100 shadow rounded-4 overflow-hidden card-hover card-spatial">
 
           <!-- Card Header -->
           <div class="card-header bg-transparent border-0 pt-3 pb-1 px-3">
 
             <div class="d-flex justify-content-between align-items-center mb-2">
-              <span class="badge bg-body-secondary text-dark rounded-2 px-3 py-2">#{{ forloop.counter|stringformat:"d" }}</span>
+              <span class="badge bg-body-secondary text-dark rounded-2 px-3 py-2">#{{forloop.counter|stringformat:"d"}}</span>
               <span class="badge bg-body-secondary text-dark px-3 py-2 rounded-2 fw-normal">
                 <i class="bi bi-outlet me-1"></i>Socket
               </span>
@@ -84,9 +84,10 @@
               </div>
               <div>
                 <span class="fw-bold text-dark">{{ socket.socket_code|capfirst }}</span>
-                <span class="text-muted small d-block"><i class="bi bi-box me-1"></i>{{ socket.space.name|capfirst }} · {{ socket.space.room.room_code|capfirst }}</span>
-                <span class="text-muted small d-block"><i class="bi bi-layers me-1"></i>Floor {{ socket.space.room.floor.floor_number }} · {{ socket.space.room.floor.building.name|capfirst }}</span>
-                <span class="text-muted small d-block"><i class="bi bi-geo-alt me-1"></i>{{ socket.space.room.floor.building.area.city.name|capfirst }} · {{ socket.space.room.floor.building.area.name|capfirst }}</span>
+                <span class="text-muted small d-block"><i class="bi bi-box me-1"></i>{{ socket.space.name|capfirst }} ·
+                  {{ socket.space.room.room_code|capfirst }}</span>
+                <span class="text-muted small d-block"><i class="bi bi-layers me-1"></i>Floor {{socket.space.room.floor.floor_number }} · {{ socket.space.room.floor.building.name|capfirst }}</span>
+                <span class="text-muted small d-block"><i class="bi bi-geo-alt me-1"></i>{{socket.space.room.floor.building.area.city.name|capfirst }} · {{socket.space.room.floor.building.area.name|capfirst }}</span>
               </div>
             </div>
 
@@ -96,15 +97,10 @@
           <!-- Stats -->
           <div class="card-body pt-2 pb-2 px-3">
             <div class="row g-1">
-              <div class="col-6">
-                <div class="bg-light rounded p-2 text-center">
-                  <span class="fw-semibold small d-block">{{ socket.devices_count }}</span>
-                  <span class="text-muted small">Devices</span>
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="bg-light rounded p-2 text-center">
-                  <span class="fw-semibold small d-block {% if socket.is_active %}text-success{% else %}text-danger{% endif %}">
+              <div class="col-12">
+                <div class="bg-light border rounded p-2 text-center">
+                  <span
+                    class="fw-semibold small d-block {% if socket.is_active %}text-success{% else %}text-danger{% endif %}">
                     {% if socket.is_active %}Active{% else %}Inactive{% endif %}
                   </span>
                   <span class="text-muted small">Status</span>
@@ -158,7 +154,7 @@
           <div class="d-flex justify-content-between align-items-center px-3 py-2 border-top">
             <div class="d-flex align-items-center gap-1 small text-muted">
               <i class="bi bi-geo-alt-fill text-secondary"></i>
-              {{ socket.space.room.floor.building.area.city.name|capfirst }} · {{ socket.space.room.floor.building.name|capfirst }} · Floor {{ socket.space.room.floor.floor_number }} · {{ socket.socket_code|capfirst }}
+              {{ socket.space.room.floor.building.area.city.name|capfirst }} · {{socket.space.room.floor.building.name|capfirst }} · Floor {{ socket.space.room.floor.floor_number }} · {{socket.socket_code|capfirst }}
             </div>
             <div class="d-flex gap-2">
               <button class="btn btn-sm btn-outline-info border-1"><i class="bi bi-pencil"></i></button>
@@ -178,28 +174,33 @@
 <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
 
 <style>
-.card-hover {
-  transition: transform .2s ease-in-out, box-shadow .2s ease-in-out;
-}
-.card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
-}
-.section-label {
-  font-size: 0.65rem;
-  letter-spacing: 0.03em;
-}
-/* Added hover-shadow and transition-all classes from the dashboard */
-.hover-shadow {
-  transition: all 0.2s ease-in-out;
-}
-.hover-shadow:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
-}
-.transition-all {
-  transition: all 0.2s ease-in-out;
-}
+  .card-hover {
+    transition: transform .2s ease-in-out, box-shadow .2s ease-in-out;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+  }
+
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.03em;
+  }
+
+  /* Added hover-shadow and transition-all classes from the dashboard */
+  .hover-shadow {
+    transition: all 0.2s ease-in-out;
+  }
+
+  .hover-shadow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+  }
+
+  .transition-all {
+    transition: all 0.2s ease-in-out;
+  }
 </style>
 
 {% endblock %}

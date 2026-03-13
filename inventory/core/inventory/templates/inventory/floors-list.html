@@ -9,7 +9,7 @@
   <nav class="navbar bg-white border shadow-sm sticky-top px-4 mb-4 rounded-3 z-1">
     <div class="d-flex align-items-center gap-3">
 
-      <i class="bi bi-layers text-warning fs-2"></i>
+      <i class="bi bi-layers text-primary fs-2"></i>
 
       <div class="d-flex flex-column lh-sm">
         <span class="fw-semibold text-dark">Floors</span>
@@ -66,46 +66,48 @@
 
       {% for floor in floors %}
       <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="card h-100 shadow rounded-4 overflow-hidden card-hover border-top border-3 border-primary border-0">
+        <div class="card h-100 shadow rounded-4 overflow-hidden card-hover card-spatial">
 
-          <!-- Card Header -->
+          <!-- Card Header - SIMPLIFIED like cities template -->
           <div class="card-header bg-transparent border-0 pt-3 pb-1 px-3">
 
             <div class="d-flex justify-content-between align-items-center mb-2">
-              <span class="badge bg-secondary rounded-2 px-3 py-2">#{{ forloop.counter|stringformat:"d" }}</span>
-              <span class="badge bg-info-subtle text-info px-3 py-2 rounded-2 fw-normal">
-                <i class="bi bi-layers me-1"></i>Floor
-              </span>
+              <span class="badge bg-light text-dark border rounded-2 px-3 py-2">#{{ forloop.counter|stringformat:"d" }}</span>
             </div>
 
             <div class="d-flex align-items-center gap-2">
-              <div class="bg-light rounded-2 p-2">
-                <i class="bi bi-layers text-secondary fs-5"></i>
-              </div>
+              <i class="bi bi-layers text-primary fs-5"></i>
               <div>
                 <span class="fw-bold text-dark">Floor {{ floor.floor_number }}</span>
-                <span class="text-muted small d-block"><i class="bi bi-building me-1"></i>{{ floor.building.name|capfirst }}</span>
-                <span class="text-muted small d-block"><i class="bi bi-geo-alt me-1"></i>{{ floor.building.area.city.name|capfirst }} · {{ floor.building.area.name|capfirst }}</span>
+                <span class="text-muted small d-block">{{ floor.building.name|capfirst }}</span>
+                <span class="text-muted small d-block">{{ floor.building.area.city.name|capfirst }} · {{ floor.building.area.name|capfirst }}</span>
               </div>
             </div>
 
           </div>
 
 
-          <!-- Stats -->
+          <!-- Stats - 3-COLUMN layout like cities template -->
           <div class="card-body pt-2 pb-2 px-3">
             <div class="row g-1">
-              <div class="col-12">
-                <div class="bg-light rounded p-2 text-center">
+              <div class="col-6">
+                <div class="bg-light border rounded p-2 text-center stat-box">
                   <span class="fw-semibold small d-block">{{ floor.rooms_count }}</span>
                   <span class="text-muted small">Rooms</span>
                 </div>
               </div>
+              <div class="col-6">
+                <div class="bg-light border rounded p-2 text-center stat-box">
+                  <span class="fw-semibold small d-block">{{ floor.common_areas_count }}</span>
+                  <span class="text-muted small">Common Areas</span>
+                </div>
+              </div>
+            
             </div>
           </div>
 
 
-          <!-- Devices -->
+          <!-- Devices - EXACT categories as cities template -->
           <div class="px-3 pt-1 pb-2">
 
             <span class="text-muted opacity-75 section-label d-block mb-1">Devices</span>
@@ -114,7 +116,7 @@
               <i class="bi bi-pc-display text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Desktops</span>
-                <span class="badge bg-primary-subtle text-primary">{{ floor.desktops_count }}</span>
+                <span class="badge bg-primary-subtle text-muted">{{ floor.desktops_count }}</span>
               </div>
             </div>
 
@@ -122,7 +124,7 @@
               <i class="bi bi-display text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">All-in-Ones</span>
-                <span class="badge bg-primary-subtle text-primary">{{ floor.allinones_count }}</span>
+                <span class="badge bg-primary-subtle text-muted">{{ floor.allinones_count }}</span>
               </div>
             </div>
 
@@ -130,7 +132,7 @@
               <i class="bi bi-laptop text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Laptops</span>
-                <span class="badge bg-primary-subtle text-primary">{{ floor.laptops_count }}</span>
+                <span class="badge bg-primary-subtle text-muted">{{ floor.laptops_count }}</span>
               </div>
             </div>
 
@@ -138,7 +140,7 @@
               <i class="bi bi-server text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Servers</span>
-                <span class="badge bg-primary-subtle text-primary">{{ floor.servers_count }}</span>
+                <span class="badge bg-primary-subtle text-muted">{{ floor.servers_count }}</span>
               </div>
             </div>
 
@@ -146,7 +148,7 @@
               <i class="bi bi-printer text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Printers</span>
-                <span class="badge bg-primary-subtle text-primary">{{ floor.printers_count }}</span>
+                <span class="badge bg-primary-subtle text-muted">{{ floor.printers_count }}</span>
               </div>
             </div>
 
@@ -154,7 +156,7 @@
               <i class="bi bi-battery-charging text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">UPS</span>
-                <span class="badge bg-primary-subtle text-primary">{{ floor.ups_count }}</span>
+                <span class="badge bg-primary-subtle text-muted">{{ floor.ups_count }}</span>
               </div>
             </div>
 
@@ -162,7 +164,7 @@
               <i class="bi bi-hdd-network text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Switches</span>
-                <span class="badge bg-primary-subtle text-primary">{{ floor.switches_count }}</span>
+                <span class="badge bg-primary-subtle text-muted">{{ floor.switches_count }}</span>
               </div>
             </div>
 
@@ -170,7 +172,15 @@
               <i class="bi bi-telephone text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Phones</span>
-                <span class="badge bg-primary-subtle text-primary">{{ floor.phones_count }}</span>
+                <span class="badge bg-primary-subtle text-muted">{{ floor.phones_count }}</span>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-wifi text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">Access Points</span>
+                <span class="badge bg-primary-subtle text-muted">{{ floor.accesspoints_count }}</span>
               </div>
             </div>
 
@@ -178,18 +188,18 @@
               <i class="bi bi-keyboard text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Peripherals</span>
-                <span class="badge bg-primary-subtle text-primary">{{ floor.peripherals_count }}</span>
+                <span class="badge bg-primary-subtle text-muted">{{ floor.peripherals_count }}</span>
               </div>
             </div>
 
           </div>
 
 
-          <!-- Footer -->
+          <!-- Footer - SIMPLIFIED like cities template -->
           <div class="d-flex justify-content-between align-items-center px-3 py-2 border-top">
             <div class="d-flex align-items-center gap-1 small text-muted">
-              <i class="bi bi-geo-alt-fill text-secondary"></i>
-              {{ floor.building.area.city.name|capfirst }} · {{ floor.building.name|capfirst }} · Floor {{ floor.floor_number }}
+              <i class="bi bi-layers-fill text-secondary"></i>
+              Floor {{ floor.floor_number }}
             </div>
             <div class="d-flex gap-2">
               <button class="btn btn-sm btn-outline-info border-1"><i class="bi bi-pencil"></i></button>
@@ -208,18 +218,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
 
-<style>
-.card-hover {
-  transition: transform .2s ease-in-out, box-shadow .2s ease-in-out;
-}
-.card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
-}
-.section-label {
-  font-size: 0.65rem;
-  letter-spacing: 0.03em;
-}
-</style>
+
 
 {% endblock %}

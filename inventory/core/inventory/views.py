@@ -31,6 +31,7 @@ from .models import (
     ServerComputer,
     Phone,
     CommonArea,
+    AccessPoint
 )
 
 
@@ -59,6 +60,7 @@ def dashboard(request):
         "allInOnes_count": AllInOneComputer.objects.count(),
         "printers_count": Printer.objects.count(),
         "switches_count": Switch.objects.count(),
+        "access_points_count": AccessPoint.objects.count(),
         "upses_count": Ups.objects.count(),
         "phones_count": Phone.objects.count(),
     }
@@ -130,6 +132,9 @@ def cities_list(request):
         switches_count=Count(
             "areas__buildings__floors__rooms__spaces__devices__switch", distinct=True
         ),
+        accesspoints_count=Count(
+            "areas__buildings__floors__rooms__spaces__devices__accesspoint", distinct=True
+        ),
         phones_count=Count(
             "areas__buildings__floors__rooms__spaces__devices__phone", distinct=True
         ),
@@ -166,6 +171,10 @@ def areas_list(request):
         switches_count=Count(
             "buildings__floors__rooms__spaces__devices__switch", distinct=True
         ),
+        accesspoints_count=Count(
+            "buildings__floors__rooms__spaces__devices__accesspoint", distinct=True
+        ),
+
         phones_count=Count(
             "buildings__floors__rooms__spaces__devices__phone", distinct=True
         ),
@@ -180,6 +189,7 @@ def buildings_list(request):
     buildings = Building.objects.select_related("area__city").annotate(
         floors_count=Count("floors", distinct=True),
         rooms_count=Count("floors__rooms", distinct=True),
+
         desktops_count=Count(
             "floors__rooms__spaces__devices__desktopcomputer", distinct=True
         ),
@@ -194,6 +204,7 @@ def buildings_list(request):
         ),
         printers_count=Count("floors__rooms__spaces__devices__printer", distinct=True),
         ups_count=Count("floors__rooms__spaces__devices__ups", distinct=True),
+        accesspoints_count=Count("floors__rooms__spaces__devices__accesspoint", distinct=True),
         switches_count=Count("floors__rooms__spaces__devices__switch", distinct=True),
         phones_count=Count("floors__rooms__spaces__devices__phone", distinct=True),
         peripherals_count=Count(
@@ -206,6 +217,7 @@ def buildings_list(request):
 def floors_list(request):
     floors = Floor.objects.select_related("building__area__city").annotate(
         rooms_count=Count("rooms", distinct=True),
+        common_areas_count=Count("common_areas", distinct=True),
         desktops_count=Count("rooms__spaces__devices__desktopcomputer", distinct=True),
         allinones_count=Count(
             "rooms__spaces__devices__allinonecomputer", distinct=True
@@ -216,6 +228,7 @@ def floors_list(request):
         ups_count=Count("rooms__spaces__devices__ups", distinct=True),
         switches_count=Count("rooms__spaces__devices__switch", distinct=True),
         phones_count=Count("rooms__spaces__devices__phone", distinct=True),
+        accesspoints_count=Count("rooms__spaces__devices__accesspoint", distinct=True),
         peripherals_count=Count("rooms__spaces__devices__peripherals", distinct=True),
     )
     return render(request, "inventory/floors-list.html", {"floors": floors})
@@ -233,6 +246,7 @@ def common_areas_list(request):
         ups_count=Count("devices__ups", distinct=True),
         switches_count=Count("devices__switch", distinct=True),
         phones_count=Count("devices__phone", distinct=True),
+        accesspoints_count=Count("devices__accesspoint", distinct=True),
         peripherals_count=Count("devices__peripherals", distinct=True),
     )
     return render(
@@ -251,6 +265,7 @@ def rooms_list(request):
         ups_count=Count('spaces__devices__ups', distinct=True),
         switches_count=Count('spaces__devices__switch', distinct=True),
         phones_count=Count('spaces__devices__phone', distinct=True),
+        accesspoints_count=Count('spaces__devices__accesspoint', distinct=True),
         peripherals_count=Count('spaces__devices__peripherals', distinct=True),
     )
     return render(request, 'inventory/rooms-list.html', {'rooms': rooms})
@@ -258,6 +273,7 @@ def rooms_list(request):
 
 def spaces_list(request):
     spaces = Space.objects.select_related('room__floor__building__area__city').annotate(
+        devices_count=Count('devices', distinct=True),
         sockets_count=Count('sockets', distinct=True),
         desktops_count=Count('devices__desktopcomputer', distinct=True),
         allinones_count=Count('devices__allinonecomputer', distinct=True),
@@ -267,6 +283,7 @@ def spaces_list(request):
         ups_count=Count('devices__ups', distinct=True),
         switches_count=Count('devices__switch', distinct=True),
         phones_count=Count('devices__phone', distinct=True),
+        accesspoints_count=Count('devices__accesspoint', distinct=True),
         peripherals_count=Count('devices__peripherals', distinct=True),
     )
     return render(request, 'inventory/spaces-list.html', {'spaces': spaces})
@@ -372,6 +389,13 @@ def switches_list(request):
         'device_ptr__assignments__user',
     )
     return render(request, 'inventory/switches-list.html', {'switches': switches})
+
+def access_points_list(request):
+    accesspoints = AccessPoint.objects.select_related('space__room__floor__building__area__city').prefetch_related(
+        'device_ptr__assignments__user',
+    )
+    return render(request, 'inventory/access-points-list.html', {'accesspoints':accesspoints})
+
 
 def phones_list(request):
     phones = Phone.objects.select_related('space__room__floor__building__area__city').prefetch_related(

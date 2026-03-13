@@ -66,44 +66,36 @@
 
       {% for city in cities %}
       <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="card h-100 shadow rounded-4 overflow-hidden card-hover border-top border-3 border-primary border-0">
+        <div class="card h-100 shadow rounded-4 overflow-hidden card-hover card-spatial">
 
           <!-- Card Header -->
           <div class="card-header bg-transparent border-0 pt-3 pb-1 px-3">
-
             <div class="d-flex justify-content-between align-items-center mb-2">
-              <span class="badge bg-light text-dark border rounded-2 px-3 py-2">#{{ forloop.counter|stringformat:"d" }}</span>
+              <span
+                class="badge bg-light text-dark border rounded-2 px-3 py-2">#{{ forloop.counter|stringformat:"d" }}</span>
             </div>
-
             <div class="d-flex align-items-center gap-2">
-                 <i class="bi bi-geo-alt text-primary fs-5"></i>
+              <i class="bi bi-geo-alt text-primary fs-5"></i>
               <div>
                 <span class="fw-bold text-dark">{{ city.name|capfirst }}</span>
               </div>
             </div>
-
           </div>
 
 
           <!-- Stats -->
           <div class="card-body pt-2 pb-2 px-3">
             <div class="row g-1">
-              <div class="col-4">
+              <div class="col-6">
                 <div class="bg-light border rounded p-2 text-center">
                   <span class="fw-semibold small d-block">{{ city.areas_count }}</span>
                   <span class="text-muted small">Areas</span>
                 </div>
               </div>
-              <div class="col-4">
+              <div class="col-6">
                 <div class="bg-light border rounded p-2 text-center">
                   <span class="fw-semibold small d-block">{{ city.buildings_count }}</span>
                   <span class="text-muted small">Buildings</span>
-                </div>
-              </div>
-              <div class="col-4">
-                <div class="bg-light border rounded p-2 text-center">
-                  <span class="fw-semibold small d-block">{{ city.floors_count }}</span>
-                  <span class="text-muted small">Floors</span>
                 </div>
               </div>
             </div>
@@ -172,6 +164,14 @@
             </div>
 
             <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-wifi text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">Access Points</span>
+                <span class="badge bg-primary-subtle text-muted">{{ city.accesspoints_count }}</span>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
               <i class="bi bi-telephone text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Phones</span>
@@ -189,7 +189,6 @@
 
           </div>
 
-
           <!-- Footer -->
           <div class="d-flex justify-content-between align-items-center px-3 py-2 border-top">
             <div class="d-flex align-items-center gap-1 small text-muted">
@@ -197,11 +196,14 @@
               {{ city.name|capfirst }}
             </div>
             <div class="d-flex gap-2">
-              <button class="btn btn-sm btn-outline-info border-1"><i class="bi bi-pencil"></i></button>
-              <button class="btn btn-sm btn-outline-warning border-1"><i class="bi bi-trash"></i></button>
+              <button class="btn btn-sm badge-spatial border-1">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button class="btn btn-sm badge-organic border-1">
+                <i class="bi bi-trash"></i>
+              </button>
             </div>
           </div>
-
         </div>
       </div>
       {% endfor %}
@@ -212,19 +214,5 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
-
-<style>
-.card-hover {
-  transition: transform .2s ease-in-out, box-shadow .2s ease-in-out;
-}
-.card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
-}
-.section-label {
-  font-size: 0.65rem;
-  letter-spacing: 0.03em;
-}
-</style>
 
 {% endblock %}

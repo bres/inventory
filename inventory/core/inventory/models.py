@@ -171,11 +171,14 @@ class Space(LifeCycle):
                 name="unique_space_name_per_room_ci"
             )
         ]
-
     @property
     def floor(self):
         return self.room.floor
-
+    
+    @property
+    def device_count(self):
+        return self.devices.count()  # peripherals are FK children of devices, not devices themselves
+    
     @property
     def building(self):
         return self.room.floor.building
