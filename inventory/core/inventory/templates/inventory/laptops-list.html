@@ -8,14 +8,13 @@
   <!-- Affixed Navigation Bar -->
   <nav class="navbar bg-white border shadow-sm sticky-top px-4 mb-4 rounded-3" style="z-index: 900;">
     <div class="d-flex align-items-center gap-3">
-      <i class="bi bi-laptop fs-2 text-primary"></i>
+      <i class="bi bi-laptop fs-2 text-hardware"></i>
       <div class="d-flex flex-column lh-sm">
         <span class="fw-semibold text-dark">Laptop Computers</span>
         <span class="text-muted small">Hardware Inventory</span>
       </div>
       <span
-        class="d-flex align-items-center justify-content-center rounded-circle bg-light border text-secondary fw-bold fs-6"
-        style="width: 36px; height: 36px;">
+        class="badge bg-light text-dark border rounded-5 px-3 py-2">
         {{ laptops|length }}
       </span>
     </div>
@@ -46,8 +45,7 @@
       <div class="col-12 col-sm-6 col-md-4 col-lg-3">
 
         {% if laptop.usage_type == "office" %}
-        <div class="card shadow-sm rounded-3 overflow-hidden"
-          style="border-top: 5px solid var(--bs-primary-bg-subtle);">
+        <div class="card h-100 shadow rounded-4 overflow-hidden card-hover card-hardware">
         {% elif laptop.usage_type == "laboratory" %}
         <div class="card shadow-sm rounded-3 overflow-hidden"
           style="border-top: 5px solid var(--bs-success-bg-subtle);">

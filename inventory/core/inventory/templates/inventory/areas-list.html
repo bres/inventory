@@ -9,7 +9,7 @@
   <nav class="navbar bg-white border shadow-sm sticky-top px-4 mb-4 rounded-3 z-1">
     <div class="d-flex align-items-center gap-3">
 
-      <i class="bi bi-map text-primary fs-2"></i>
+      <i class="bi bi-map text-secondary fs-2"></i>
 
       <div class="d-flex flex-column lh-sm">
         <span class="fw-semibold text-dark">Areas</span>
@@ -76,7 +76,7 @@
             </div>
 
             <div class="d-flex align-items-center gap-2">
-              <i class="bi bi-map text-primary fs-5"></i>
+              <i class="bi bi-map text-secondary fs-5"></i>
               <div>
                 <span class="fw-bold text-dark">{{ area.name|capfirst }}</span>
               </div>
@@ -107,7 +107,7 @@
               <i class="bi bi-pc-display text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Desktops</span>
-                <span class="badge bg-primary-subtle text-muted">{{ area.desktops_count }}</span>
+                <span class="badge bg-light text-muted border">{{ area.desktops_count }}</span>
               </div>
             </div>
 
@@ -115,7 +115,7 @@
               <i class="bi bi-display text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">All-in-Ones</span>
-                <span class="badge bg-primary-subtle text-muted">{{ area.allinones_count }}</span>
+                <span class="badge bg-light text-muted border">{{ area.allinones_count }}</span>
               </div>
             </div>
 
@@ -123,7 +123,7 @@
               <i class="bi bi-laptop text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Laptops</span>
-                <span class="badge bg-primary-subtle text-muted">{{ area.laptops_count }}</span>
+                <span class="badge bg-light text-muted border">{{ area.laptops_count }}</span>
               </div>
             </div>
 
@@ -131,7 +131,15 @@
               <i class="bi bi-server text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Servers</span>
-                <span class="badge bg-primary-subtle text-muted">{{ area.servers_count }}</span>
+                <span class="badge bg-light text-muted border">{{ area.servers_count }}</span>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-keyboard text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">Peripherals</span>
+                <span class="badge bg-light text-muted border">{{ area.peripherals_count }}</span>
               </div>
             </div>
 
@@ -139,7 +147,7 @@
               <i class="bi bi-printer text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Printers</span>
-                <span class="badge bg-primary-subtle text-muted">{{ area.printers_count }}</span>
+                <span class="badge bg-light text-muted border">{{ area.printers_count }}</span>
               </div>
             </div>
 
@@ -147,7 +155,7 @@
               <i class="bi bi-battery-charging text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">UPS</span>
-                <span class="badge bg-primary-subtle text-muted">{{ area.ups_count }}</span>
+                <span class="badge bg-light text-muted border">{{ area.ups_count }}</span>
               </div>
             </div>
 
@@ -155,31 +163,23 @@
               <i class="bi bi-hdd-network text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Switches</span>
-                <span class="badge bg-primary-subtle text-muted">{{ area.switches_count }}</span>
+                <span class="badge bg-light text-muted border">{{ area.switches_count }}</span>
               </div>
             </div>
             
-            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
-              <i class="bi bi-telephone text-secondary small"></i>
-              <div class="d-flex justify-content-between w-100">
-                <span class="text-muted small">Phones</span>
-                <span class="badge bg-primary-subtle text-muted">{{ area.phones_count }}</span>
-              </div>
-            </div>
-
             <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
               <i class="bi bi-wifi text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Access Points</span>
-                <span class="badge bg-primary-subtle text-muted">{{ area.accesspoints_count }}</span>
+                <span class="badge bg-light text-muted border">{{ area.accesspoints_count }}</span>
               </div>
             </div>
-            
+
             <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
-              <i class="bi bi-keyboard text-secondary small"></i>
+              <i class="bi bi-telephone text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
-                <span class="text-muted small">Peripherals</span>
-                <span class="badge bg-primary-subtle text-muted">{{ area.peripherals_count }}</span>
+                <span class="text-muted small">Phones</span>
+                <span class="badge bg-light text-muted border">{{ area.phones_count }}</span>
               </div>
             </div>
 

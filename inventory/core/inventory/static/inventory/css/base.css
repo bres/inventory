@@ -3,9 +3,6 @@ body {
   padding-top: 0px;
 }
 
-/* .custom-bg { background-color: #fafbfc; } */
-/* .topbar-bg { background-color: #e8e8e8; } */
-
 /* ── Widen container-xxl ── */
 .container-xxl {
   max-width: 1450px;
@@ -27,19 +24,17 @@ body {
   margin-top: 0.6rem;
   box-shadow: 0 6px 18px rgba(0, 0, 0, .08);
 }
-
 .navbar .dropdown-item:hover {
   background-color: #f2f7ff;
   color: #007edb;
 }
-
-.navbar .nav-item.show>.nav-link {
+.navbar .nav-item.show > .nav-link {
   color: #007edb;
   font-weight: 600;
 }
 
 /* ── Dot before nav links ── */
-.navbar .nav-item>.nav-link::before {
+.navbar .nav-item > .nav-link::before {
   content: "";
   display: inline-block;
   width: 10px;
@@ -48,60 +43,77 @@ body {
   margin-right: 6px;
 }
 
-/* ── Colored dropdown arrows ── */
-.navbar .nav-item:nth-child(1)>.nav-link.dropdown-toggle::after {
-  border-top-color: #c0c5c9;
+/* ── Dropdown arrows — size (all) + color (per item) ── */
+.navbar .nav-item > .nav-link.dropdown-toggle::after {
+  border-top-width:   6px;
+  border-right-width: 5px;
+  border-left-width:  5px;
+  vertical-align:     0.15em;
 }
+.navbar .nav-item:nth-child(1) > .nav-link.dropdown-toggle::after { border-top-color: var(--bs-secondary); }
+.navbar .nav-item:nth-child(2) > .nav-link.dropdown-toggle::after { border-top-color: var(--bs-warning);   }
+.navbar .nav-item:nth-child(3) > .nav-link.dropdown-toggle::after { border-top-color: var(--bs-primary);   }
 
-.navbar .nav-item:nth-child(2)>.nav-link.dropdown-toggle::after {
-  border-top-color: #fbbf9b;
-}
-
-.navbar .nav-item:nth-child(3)>.nav-link.dropdown-toggle::after {
-  border-top-color: #b8d8e3;
-}
-
-.hover-shadow {
-  transition: all 0.2s ease-in-out;
-}
-
-.hover-shadow:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
-}
-
-.transition-all {
-  transition: all 0.2s ease-in-out;
-}
-
+/* ── Cards ── */
 .card {
   border-radius: 0.5rem;
 }
-
 .card-hover {
   transition: transform .2s ease-in-out, box-shadow .2s ease-in-out;
 }
-
 .card-hover:hover {
   transform: translateY(-2px);
   box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
 }
 
+/* ── Hover & transitions ── */
+.hover-shadow {
+  transition: all 0.2s ease-in-out;
+}
+.hover-shadow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+}
+.transition-all {
+  transition: all 0.2s ease-in-out;
+}
+
+/* ── Section label ── */
 .section-label {
   font-size: 0.65rem;
   letter-spacing: 0.03em;
 }
 
+/* ── Category: thick top borders ── */
+.card-spatial  { border-top: 3px solid var(--bs-secondary) !important; }
+.card-organic  { border-top: 3px solid var(--bs-warning)   !important; }
+.card-hardware { border-top: 3px solid var(--bs-primary)   !important; }
+.card-queries  { border-top: 3px solid var(--bs-info)      !important; }
 
-  /* Thick colored top borders per category — Sandstone CSS variables */
-  .card-spatial  { border-top: 3px solid var(--bs-secondary) !important; }
-  .card-organic  { border-top: 3px solid var(--bs-warning)   !important; }
-  .card-hardware { border-top: 3px solid var(--bs-primary)   !important; }
-  .card-queries  { border-top: 3px solid var(--bs-info)      !important; }
+/* ── Category: text colors ── */
+.text-spatial  { color: var(--bs-secondary) !important; }
+.text-organic  { color: var(--bs-warning)   !important; }
+.text-hardware { color: var(--bs-primary)   !important; }
+.text-queries  { color: var(--bs-info)      !important; }
 
-  /* Optional: subtle hover lift */
-  .hover-shadow:hover {
-    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
-    transform: translateY(-2px);
-    transition: all .2s ease;
-  }
+/* ── Category: legend badges ── */
+.badge-spatial {
+  background-color: var(--bs-secondary-bg-subtle);
+  color: var(--bs-secondary);
+  border-color: var(--bs-secondary) !important;
+}
+.badge-organic {
+  background-color: var(--bs-warning-bg-subtle);
+  color: var(--bs-warning);
+  border-color: var(--bs-warning) !important;
+}
+.badge-hardware {
+  background-color: var(--bs-primary-bg-subtle);
+  color: var(--bs-primary);
+  border-color: var(--bs-primary) !important;
+}
+.badge-queries {
+  background-color: var(--bs-info-bg-subtle);
+  color: var(--bs-info);
+  border-color: var(--bs-info) !important;
+}

@@ -9,7 +9,7 @@
   <nav class="navbar bg-white border shadow-sm sticky-top px-4 mb-4 rounded-3 z-1">
     <div class="d-flex align-items-center gap-3">
 
-      <i class="bi bi-box text-primary fs-2"></i>
+      <i class="bi bi-box text-secondary fs-2"></i>
 
       <div class="d-flex flex-column lh-sm">
         <span class="fw-semibold text-dark">Spaces</span>
@@ -72,11 +72,11 @@
           <div class="card-header bg-transparent border-0 pt-3 pb-1 px-3">
 
             <div class="d-flex justify-content-between align-items-center mb-2">
-              <span class="badge bg-light text-dark border rounded-2 px-3 py-2">#{{ forloop.counter|stringformat:"04d" }}</span>
+              <span class="badge bg-light text-dark border rounded-2 px-3 py-2">#{{ forloop.counter|stringformat:"d" }}</span>
             </div>
 
             <div class="d-flex align-items-center gap-2">
-              <i class="bi bi-box text-primary fs-5"></i>
+              <i class="bi bi-box text-secondary fs-5"></i>
               <div>
                 <span class="fw-bold text-dark">{{ space.name|capfirst }}</span>
                 <span class="text-muted small d-block">{{ space.room.room_code|capfirst }} · Floor {{ space.room.floor.floor_number }}</span>
@@ -122,7 +122,7 @@
               <i class="bi bi-pc-display text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Desktops</span>
-                <span class="badge bg-primary-subtle text-muted">{{ space.desktops_count }}</span>
+                <span class="badge bg-light text-muted border">{{ space.desktops_count }}</span>
               </div>
             </div>
 
@@ -130,7 +130,7 @@
               <i class="bi bi-display text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">All-in-Ones</span>
-                <span class="badge bg-primary-subtle text-muted">{{ space.allinones_count }}</span>
+                <span class="badge bg-light text-muted border">{{ space.allinones_count }}</span>
               </div>
             </div>
 
@@ -138,7 +138,7 @@
               <i class="bi bi-laptop text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Laptops</span>
-                <span class="badge bg-primary-subtle text-muted">{{ space.laptops_count }}</span>
+                <span class="badge bg-light text-muted border">{{ space.laptops_count }}</span>
               </div>
             </div>
 
@@ -146,7 +146,15 @@
               <i class="bi bi-server text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Servers</span>
-                <span class="badge bg-primary-subtle text-muted">{{ space.servers_count }}</span>
+                <span class="badge bg-light text-muted border">{{ space.servers_count }}</span>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-keyboard text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">Peripherals</span>
+                <span class="badge bg-light text-muted border">{{ space.peripherals_count }}</span>
               </div>
             </div>
 
@@ -154,7 +162,7 @@
               <i class="bi bi-printer text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Printers</span>
-                <span class="badge bg-primary-subtle text-muted">{{ space.printers_count }}</span>
+                <span class="badge bg-light text-muted border">{{ space.printers_count }}</span>
               </div>
             </div>
 
@@ -162,7 +170,7 @@
               <i class="bi bi-battery-charging text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">UPS</span>
-                <span class="badge bg-primary-subtle text-muted">{{ space.ups_count }}</span>
+                <span class="badge bg-light text-muted border">{{ space.ups_count }}</span>
               </div>
             </div>
 
@@ -170,15 +178,7 @@
               <i class="bi bi-hdd-network text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Switches</span>
-                <span class="badge bg-primary-subtle text-muted">{{ space.switches_count }}</span>
-              </div>
-            </div>
-
-            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
-              <i class="bi bi-telephone text-secondary small"></i>
-              <div class="d-flex justify-content-between w-100">
-                <span class="text-muted small">Phones</span>
-                <span class="badge bg-primary-subtle text-muted">{{ space.phones_count }}</span>
+                <span class="badge bg-light text-muted border">{{ space.switches_count }}</span>
               </div>
             </div>
 
@@ -186,17 +186,18 @@
               <i class="bi bi-wifi text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Access Points</span>
-                <span class="badge bg-primary-subtle text-muted">{{ space.accesspoints_count }}</span>
+                <span class="badge bg-light text-muted border">{{ space.accesspoints_count }}</span>
               </div>
             </div>
             
             <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
-              <i class="bi bi-keyboard text-secondary small"></i>
+              <i class="bi bi-telephone text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
-                <span class="text-muted small">Peripherals</span>
-                <span class="badge bg-primary-subtle text-muted">{{ space.peripherals_count }}</span>
+                <span class="text-muted small">Phones</span>
+                <span class="badge bg-light text-muted border">{{ space.phones_count }}</span>
               </div>
             </div>
+          
 
           </div>
 

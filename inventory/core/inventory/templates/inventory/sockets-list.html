@@ -9,7 +9,7 @@
   <nav class="navbar bg-white border shadow-sm sticky-top px-4 mb-4 rounded-3 z-1">
     <div class="d-flex align-items-center gap-3">
 
-      <i class="bi bi-outlet text-primary fs-2"></i>
+      <i class="bi bi-outlet text-secondary fs-2"></i>
 
       <div class="d-flex flex-column lh-sm">
         <span class="fw-semibold text-dark">Sockets</span>
@@ -72,14 +72,14 @@
           <div class="card-header bg-transparent border-0 pt-3 pb-1 px-3">
 
             <div class="d-flex justify-content-between align-items-center mb-2">
-              <span class="badge bg-body-secondary text-dark rounded-2 px-3 py-2">#{{forloop.counter|stringformat:"d"}}</span>
+              <span class="badge bg-light text-dark border rounded-2 px-3 py-2">#{{forloop.counter|stringformat:"d"}}</span>
               <span class="badge bg-body-secondary text-dark px-3 py-2 rounded-2 fw-normal">
                 <i class="bi bi-outlet me-1"></i>Socket
               </span>
             </div>
 
             <div class="d-flex align-items-center gap-2">
-              <div class="bg-light rounded-2 p-2">
+              <div class="">
                 <i class="bi bi-outlet text-dark fs-5"></i>
               </div>
               <div>
@@ -119,7 +119,7 @@
               <i class="bi bi-building text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Building</span>
-                <span class="badge bg-light text-secondary">{{ socket.space.room.floor.building.name|capfirst }}</span>
+                <span class="badge bg-light text-muted border">{{ socket.space.room.floor.building.name|capfirst }}</span>
               </div>
             </div>
 
@@ -127,25 +127,41 @@
               <i class="bi bi-layers text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Floor</span>
-                <span class="badge bg-light text-secondary">{{ socket.space.room.floor.floor_number }}</span>
+                <span class="badge bg-light text-muted border">{{ socket.space.room.floor.floor_number }}</span>
               </div>
             </div>
 
-            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
-              <i class="bi bi-door-closed text-secondary small"></i>
-              <div class="d-flex justify-content-between w-100">
-                <span class="text-muted small">Room</span>
-                <span class="badge bg-light text-secondary">{{ socket.space.room.room_code|capfirst }}</span>
-              </div>
+          {% if socket.space %}
+          <!-- Space path: show Room + Space -->
+          <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+            <i class="bi bi-door-closed text-secondary small"></i>
+            <div class="d-flex justify-content-between w-100">
+              <span class="text-muted small">Room</span>
+              <span class="badge bg-light text-muted border">{{ socket.space.room.room_code|capfirst }}</span>
             </div>
+          </div>
 
-            <div class="d-flex align-items-center gap-2 py-1">
-              <i class="bi bi-box text-secondary small"></i>
-              <div class="d-flex justify-content-between w-100">
-                <span class="text-muted small">Space</span>
-                <span class="badge bg-light text-secondary">{{ socket.space.name|capfirst }}</span>
-              </div>
+          <div class="d-flex align-items-center gap-2 py-1">
+            <i class="bi bi-box text-secondary small"></i>
+            <div class="d-flex justify-content-between w-100">
+              <span class="text-muted small">Space</span>
+              <span class="badge bg-light text-muted border">{{ socket.space.name|capfirst }}</span>
             </div>
+          </div>
+
+          {% elif socket.common_area %}
+          <!-- Common Area path: show type + name -->
+          <div class="d-flex align-items-center gap-2 py-1">
+            <i class="bi bi-diagram-3 text-secondary small"></i>
+            <div class="d-flex justify-content-between w-100">
+              <span class="text-muted small">Common Area</span>
+              <span class="badge bg-light text-muted border">
+                {{ socket.common_area.name|capfirst }}
+                <span class="text-muted">({{ socket.common_area.get_area_type_display }})</span>
+              </span>
+            </div>
+          </div>
+          {% endif %}
 
           </div>
 
@@ -154,7 +170,12 @@
           <div class="d-flex justify-content-between align-items-center px-3 py-2 border-top">
             <div class="d-flex align-items-center gap-1 small text-muted">
               <i class="bi bi-geo-alt-fill text-secondary"></i>
-              {{ socket.space.room.floor.building.area.city.name|capfirst }} · {{socket.space.room.floor.building.name|capfirst }} · Floor {{ socket.space.room.floor.floor_number }} · {{socket.socket_code|capfirst }}
+              {{ socket.space.room.floor.building.area.city.name|capfirst }} · {{socket.space.room.floor.building.name|capfirst }} ·           
+              {% if socket.space %}
+              Floor {{ socket.space.room.floor.floor_number }} · {{socket.socket_code|capfirst }}
+              {% elif socket.common_area %}
+              {{ socket.common_area.name|capfirst }} ({{ socket.common_area.get_area_type_display }})
+              {% endif %}
             </div>
             <div class="d-flex gap-2">
               <button class="btn btn-sm btn-outline-info border-1"><i class="bi bi-pencil"></i></button>

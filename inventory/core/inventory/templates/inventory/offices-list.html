@@ -72,15 +72,13 @@
           <div class="card-header bg-transparent border-0 pt-3 pb-1 px-3">
 
             <div class="d-flex justify-content-between align-items-center mb-2">
-              <span class="badge bg-secondary rounded-2 px-3 py-2">#{{ forloop.counter|stringformat:"d" }}</span>
-              <span class="badge bg-secondary-subtle text-secondary px-3 py-2 rounded-2 fw-normal">
-                <i class="bi bi-building me-1"></i>Office
-              </span>
+              <span class="badge bg-light text-dark border rounded-2 px-3 py-2">#{{ forloop.counter|stringformat:"d" }}</span>
+             
             </div>
 
             <div class="d-flex align-items-center gap-2">
-              <div class="bg-light rounded-2 p-2">
-                <i class="bi bi-building text-secondary fs-5"></i>
+              <div class="">
+                <i class="bi bi-building text-warning fs-5"></i>
               </div>
               <div>
                 <span class="fw-bold text-dark">{{ office.name|capfirst }}</span>
@@ -96,7 +94,7 @@
           <div class="card-body pt-2 pb-2 px-3">
             <div class="row g-1">
               <div class="col-12">
-                <div class="bg-light rounded p-2 text-center">
+                <div class="bg-light border rounded p-2 text-center">
                   <span class="fw-semibold small d-block">{{ office.users_count }}</span>
                   <span class="text-muted small">Users</span>
                 </div>
@@ -110,29 +108,6 @@
 
             <span class="text-muted opacity-75 section-label d-block mb-1">Organisation</span>
 
-            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
-              <i class="bi bi-bank text-secondary small"></i>
-              <div class="d-flex justify-content-between w-100">
-                <span class="text-muted small">General Directorate</span>
-                <span class="text-dark small">{{ office.department.directorate.general_directorate.name|capfirst }}</span>
-              </div>
-            </div>
-
-            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
-              <i class="bi bi-diagram-2 text-secondary small"></i>
-              <div class="d-flex justify-content-between w-100">
-                <span class="text-muted small">Directorate</span>
-                <span class="text-dark small">{{ office.department.directorate.name|capfirst }}</span>
-              </div>
-            </div>
-
-            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
-              <i class="bi bi-folder2-open text-secondary small"></i>
-              <div class="d-flex justify-content-between w-100">
-                <span class="text-muted small">Department</span>
-                <span class="text-dark small">{{ office.department.name|capfirst }}</span>
-              </div>
-            </div>
 
             <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
               <i class="bi bi-people text-secondary small"></i>
