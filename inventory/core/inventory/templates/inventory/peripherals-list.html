@@ -5,178 +5,227 @@
 
 <div class="container-fluid">
 
-  <!-- Affixed Navigation Bar -->
-  <nav class="navbar bg-white border shadow-sm sticky-top px-4 mb-4 rounded-3" style="z-index: 900;">
+  <!-- Top Navbar -->
+  <nav class="navbar bg-white border shadow-sm sticky-top px-4 mb-4 rounded-3 z-1">
     <div class="d-flex align-items-center gap-3">
-      <i class="bi bi-display fs-2 text-primary"></i>
+
+      <i class="bi bi-keyboard text-hardware fs-2"></i>
+
       <div class="d-flex flex-column lh-sm">
         <span class="fw-semibold text-dark">Peripherals</span>
         <span class="text-muted small">Hardware Inventory</span>
       </div>
-      <span
-        class="d-flex align-items-center justify-content-center rounded-circle bg-light border text-secondary fw-bold fs-6"
-        style="width: 36px; height: 36px;">
-        {{ peripherals|length }}
-      </span>
+
+      <div class="vr"></div>
+
+      <div class="d-flex align-items-center gap-2">
+        <span class="badge bg-light text-dark border rounded-2 px-3 py-2">Total: {{ peripherals|length }}</span>
+      </div>
+
     </div>
 
     <div class="d-flex align-items-center gap-2 ms-auto">
-      <a href="#" class="btn btn-sm btn-light border text-secondary d-flex align-items-center gap-1">
-        <i class="bi bi-file-pdf"></i>
-        <span class="small">PDF</span>
-      </a>
-      <a href="#" class="btn btn-sm btn-light border text-secondary d-flex align-items-center gap-1">
-        <i class="bi bi-file-earmark-csv"></i>
-        <span class="small">CSV</span>
-      </a>
 
-      <div class="vr mx-1"></div>
+      <div class="dropdown">
+        <button class="btn btn-sm btn-light border dropdown-toggle" data-bs-toggle="dropdown">
+          <i class="bi bi-download me-1"></i> Export
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item"><i class="bi bi-file-pdf text-danger me-2"></i>PDF</a></li>
+          <li><a class="dropdown-item"><i class="bi bi-file-earmark-excel text-success me-2"></i>Excel</a></li>
+          <li><a class="dropdown-item"><i class="bi bi-file-earmark-csv text-primary me-2"></i>CSV</a></li>
+        </ul>
+      </div>
 
-      <a href="#" class="btn btn-sm btn-light border text-secondary rounded d-flex align-items-center gap-2 px-3">
+      <a href="#" class="btn btn-sm btn-light border d-flex align-items-center gap-2 px-3">
         <i class="bi bi-plus-lg"></i>
-        <span class="small fw-semibold">Add New</span>
+        <span class="small fw-semibold">Add Peripheral</span>
       </a>
+
+      <button class="btn btn-sm btn-light border">
+        <i class="bi bi-funnel"></i>
+      </button>
+
     </div>
   </nav>
 
-  <!-- Cards Grid -->
+
+  <!-- Results + View Toggle -->
+  <div class="d-flex justify-content-between align-items-center px-3 mb-3">
+    <span class="text-muted small">Showing {{ peripherals|length }} peripherals</span>
+    <div class="btn-group btn-group-sm">
+      <button class="btn btn-light border active"><i class="bi bi-grid-3x3-gap-fill"></i></button>
+      <button class="btn btn-light border"><i class="bi bi-list-ul"></i></button>
+    </div>
+  </div>
+
+
+  <!-- Cards -->
   <div class="px-3">
-    <div class="row g-3" data-masonry='{"percentPosition": true, "horizontalOrder": true}'>
+    <div class="row g-4" data-masonry='{"percentPosition": true, "horizontalOrder": true}'>
+
       {% for peripheral in peripherals %}
       <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="card h-100 shadow rounded-4 overflow-hidden card-hover card-hardware">
 
-        {% if peripheral.peripheral_type == "monitor" %}
-        <div class="card shadow-sm rounded-3 overflow-hidden"
-          style="border-top: 5px solid var(--bs-primary-bg-subtle);">
-        {% elif peripheral.peripheral_type == "keyboard" %}
-        <div class="card shadow-sm rounded-3 overflow-hidden"
-          style="border-top: 5px solid var(--bs-success-bg-subtle);">
-        {% else %}
-        <div class="card shadow-sm rounded-3 overflow-hidden"
-          style="border-top: 5px solid var(--bs-warning-bg-subtle);">
-        {% endif %}
+          <!-- Card Header -->
+          <div class="card-header bg-transparent border-0 pt-3 pb-1 px-3">
 
-          <!-- Top Bar -->
-          <div class="card-body pb-2">
             <div class="d-flex justify-content-between align-items-center mb-2">
-              <span class="badge bg-secondary">#{{ forloop.counter|stringformat:"04d" }}</span>
-              {% if peripheral.peripheral_type == "monitor" %}
-              <span class="badge bg-primary-subtle text-primary fw-normal">{{ peripheral.peripheral_type }}</span>
-              {% elif peripheral.peripheral_type == "keyboard" %}
-              <span class="badge bg-success-subtle text-success fw-normal">{{ peripheral.peripheral_type }}</span>
-              {% else %}
-              <span class="badge bg-warning-subtle text-warning fw-normal">{{ peripheral.peripheral_type }}</span>
-              {% endif %}
+              <span class="badge bg-light text-dark border rounded-2 px-3 py-2">#{{ forloop.counter|stringformat:"d" }}</span>
+              <span class="badge rounded-2 fw-normal px-3 py-2
+                {% if peripheral.peripheral_type == 'monitor' %}bg-primary-subtle text-primary
+                {% elif peripheral.peripheral_type == 'keyboard' %}bg-success-subtle text-success
+                {% else %}bg-warning-subtle text-warning{% endif %}">
+                <i class="bi me-1
+                  {% if peripheral.peripheral_type == 'monitor' %}bi-display
+                  {% elif peripheral.peripheral_type == 'keyboard' %}bi-keyboard
+                  {% else %}bi-mouse{% endif %}"></i>
+                {{ peripheral.peripheral_type|capfirst }}
+              </span>
             </div>
 
-            <h6 class="fw-bold fs-5 mb-1">
-              {% if peripheral.peripheral_type == "monitor" %}
-              <i class="bi bi-display me-1 text-primary"></i>
-              {% elif peripheral.peripheral_type == "keyboard" %}
-              <i class="bi bi-keyboard me-1 text-success"></i>
-              {% else %}
-              <i class="bi bi-mouse me-1 text-warning"></i>
-              {% endif %}
-              {{ peripheral.brand|capfirst }} · {{ peripheral.model|capfirst }}
-            </h6>
-            <div class="d-flex gap-3 small text-muted">
-              <span>SN: <span class="fw-semibold text-dark">{{ peripheral.serial_number }}</span></span>
+            <div class="d-flex align-items-center gap-2">
+              <i class="bi text-hardware fs-5
+                {% if peripheral.peripheral_type == 'monitor' %}bi-display
+                {% elif peripheral.peripheral_type == 'keyboard' %}bi-keyboard
+                {% else %}bi-mouse{% endif %}"></i>
+              <div>
+                <span class="fw-bold text-dark">{{ peripheral.brand|capfirst }}</span>
+                <span class="text-muted small d-block">{{ peripheral.model|capfirst }}</span>
+              </div>
+            </div>
+
+          </div>
+
+
+          <!-- Serial -->
+          <div class="px-3 pt-2 pb-1">
+            <div class="d-flex flex-wrap gap-2">
+              <span class="badge bg-light text-dark border"><i class="bi bi-upc-scan me-1"></i>{{ peripheral.serial_number }}</span>
             </div>
           </div>
 
-          <!-- Specs Bar -->
-          <div class="d-flex justify-content-around align-items-center bg-light py-2 border-top border-bottom">
-            <div class="text-center">
-              <div class="fw-bold">{{ peripheral.get_peripheral_type_display }}</div>
-              <div class="text-muted small">Type</div>
-            </div>
-            <div class="vr"></div>
-            <div class="text-center">
-              {% if peripheral.is_active %}
-              <div class="fw-bold text-success"><i class="bi bi-check-circle-fill"></i></div>
-              {% else %}
-              <div class="fw-bold text-danger"><i class="bi bi-x-circle-fill"></i></div>
-              {% endif %}
-              <div class="text-muted small">Status</div>
+
+          <!-- Specs -->
+          <div class="card-body pt-2 pb-2 px-3">
+            <div class="row g-1">
+              <div class="col-6">
+                <div class="bg-light border rounded p-2 text-center">
+                  <span class="fw-semibold small d-block">{{ peripheral.get_peripheral_type_display }}</span>
+                  <span class="text-muted small">Type</span>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="bg-light border rounded p-2 text-center">
+                  <span class="fw-semibold small d-block">
+                    {% if peripheral.is_active %}
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                    {% else %}
+                    <i class="bi bi-x-circle-fill text-danger"></i>
+                    {% endif %}
+                  </span>
+                  <span class="text-muted small">Status</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <!-- Body -->
-          <div class="card-body py-2">
-            <p class="text-uppercase text-muted fw-bold mb-1 small" style="letter-spacing:.08em;">Details</p>
 
-            <div class="d-flex justify-content-between align-items-center py-1 border-bottom">
-              <span class="text-muted d-flex align-items-center gap-2"><i class="bi bi-tag"></i> Brand</span>
-              <span class="small fw-semibold">{{ peripheral.brand|capfirst|default:"—" }}</span>
+          <!-- Details -->
+          <div class="px-3 pt-1 pb-2">
+
+            <span class="text-muted opacity-75 section-label d-block mb-1">Details</span>
+
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-tag text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">Brand</span>
+                <span class="badge bg-light text-muted border">{{ peripheral.brand|capfirst|default:"—" }}</span>
+              </div>
             </div>
 
-            <div class="d-flex justify-content-between align-items-center py-1 border-bottom">
-              <span class="text-muted d-flex align-items-center gap-2"><i class="bi bi-box"></i> Model</span>
-              <span class="small fw-semibold">{{ peripheral.model|capfirst|default:"—" }}</span>
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-box text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">Model</span>
+                <span class="badge bg-light text-muted border">{{ peripheral.model|capfirst|default:"—" }}</span>
+              </div>
             </div>
 
-            <div class="d-flex justify-content-between align-items-center py-1 border-bottom">
-              <span class="text-muted d-flex align-items-center gap-2"><i class="bi bi-upc-scan"></i> Serial</span>
-              <span class="text-muted small">{{ peripheral.serial_number|default:"—" }}</span>
+            <div class="d-flex align-items-center gap-2 py-1 {% if peripheral.specifications %}border-bottom border-light{% endif %}">
+              <i class="bi bi-upc-scan text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">Serial</span>
+                <span class="badge bg-light text-muted border">{{ peripheral.serial_number|default:"—" }}</span>
+              </div>
             </div>
 
             {% if peripheral.specifications %}
-            <div class="d-flex justify-content-between align-items-center py-1 border-bottom">
-              <span class="text-muted d-flex align-items-center gap-2"><i class="bi bi-card-text"></i> Specs</span>
-              <span class="text-muted small">{{ peripheral.specifications|truncatechars:30 }}</span>
+            <div class="d-flex align-items-center gap-2 py-1">
+              <i class="bi bi-card-text text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">Specs</span>
+                <span class="badge bg-light text-muted border">{{ peripheral.specifications|truncatechars:25 }}</span>
+              </div>
             </div>
             {% endif %}
 
-            <p class="text-uppercase text-muted fw-bold mb-1 mt-3 small" style="letter-spacing:.08em;">Assigned Device</p>
-
-            <div class="d-flex justify-content-between align-items-center py-1 border-bottom">
-              <span class="text-muted d-flex align-items-center gap-2"><i class="bi bi-pc-display"></i> Device</span>
-              <span class="small fw-semibold">{{ peripheral.device.brand|capfirst }} · {{ peripheral.device.serial }}</span>
-            </div>
-
-            <div class="d-flex justify-content-between align-items-center py-1">
-              <span class="text-muted d-flex align-items-center gap-2"><i class="bi bi-geo-alt"></i> Location</span>
-              <span class="text-muted small">
-                {% if peripheral.device.space %}
-                {{ peripheral.device.space.building }} · {{ peripheral.device.space.room }}
-                {% elif peripheral.device.common_area %}
-                {{ peripheral.device.common_area }}
-                {% else %}
-                —
-                {% endif %}
-              </span>
-            </div>
           </div>
 
+
+          <!-- Assigned Device -->
+          <div class="px-3 pt-1 pb-2">
+
+            <span class="text-muted opacity-75 section-label d-block mb-1">Assigned Device</span>
+
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-pc-display text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">Device</span>
+                <span class="badge bg-light text-muted border">{{ peripheral.device.brand|capfirst }} · {{ peripheral.device.serial }}</span>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 py-1">
+              <i class="bi bi-geo-alt text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">Location</span>
+                <span class="badge bg-light text-muted border">
+                  {% if peripheral.device.space %}
+                    {{ peripheral.device.space.building }} · {{ peripheral.device.space.room }}
+                  {% elif peripheral.device.common_area %}
+                    {{ peripheral.device.common_area }}
+                  {% else %}
+                    —
+                  {% endif %}
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+
           <!-- Footer -->
-          <div class="card-footer bg-light d-flex justify-content-between align-items-center py-2">
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb m-0 p-0 small">
-                {% if peripheral.device.space %}
-                <li class="breadcrumb-item">
-                  <a class="text-secondary text-decoration-none">{{ peripheral.device.space.building }}</a>
-                </li>
-                <li class="breadcrumb-item">
-                  <a class="text-secondary text-decoration-none">{{ peripheral.device.space.floor }}</a>
-                </li>
-                <li class="breadcrumb-item">
-                  <a class="text-secondary text-decoration-none">{{ peripheral.device.space.room }}</a>
-                </li>
-                <li class="breadcrumb-item active">{{ peripheral.device.space }}</li>
-                {% elif peripheral.device.common_area %}
-                <li class="breadcrumb-item active">{{ peripheral.device.common_area }}</li>
-                {% endif %}
-              </ol>
-            </nav>
+          <div class="d-flex justify-content-between align-items-center px-3 py-2 border-top">
+            <div class="d-flex align-items-center gap-1 small text-muted">
+              <i class="bi bi-geo-alt-fill text-secondary"></i>
+              {% if peripheral.device.space %}
+                {{ peripheral.device.space.building }} · {{ peripheral.device.space.floor }} · {{ peripheral.device.space.room }}
+              {% elif peripheral.device.common_area %}
+                {{ peripheral.device.common_area }}
+              {% endif %}
+            </div>
             <div class="d-flex gap-2">
-              <button class="btn btn-sm btn-outline-primary rounded-2 py-1 px-2"><i class="bi bi-pencil"></i></button>
-              <button class="btn btn-sm btn-outline-danger rounded-2 py-1 px-2"><i class="bi bi-trash"></i></button>
+              <button class="btn btn-sm btn-outline-info border-1"><i class="bi bi-pencil"></i></button>
+              <button class="btn btn-sm btn-outline-warning border-1"><i class="bi bi-trash"></i></button>
             </div>
           </div>
 
         </div>
       </div>
       {% endfor %}
+
     </div>
   </div>
 

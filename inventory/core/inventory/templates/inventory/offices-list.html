@@ -82,8 +82,6 @@
               </div>
               <div>
                 <span class="fw-bold text-dark">{{ office.name|capfirst }}</span>
-                <span class="text-muted small d-block"><i class="bi bi-folder2-open me-1"></i>{{ office.department.name|capfirst }}</span>
-                <span class="text-muted small d-block"><i class="bi bi-diagram-2 me-1"></i>{{ office.department.directorate.name|capfirst }}</span>
               </div>
             </div>
 
@@ -91,7 +89,7 @@
 
 
           <!-- Stats -->
-          <div class="card-body pt-2 pb-2 px-3">
+          <!-- <div class="card-body pt-2 pb-2 px-3">
             <div class="row g-1">
               <div class="col-12">
                 <div class="bg-light border rounded p-2 text-center">
@@ -100,7 +98,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
 
           <!-- Organisation -->
@@ -109,7 +107,7 @@
             <span class="text-muted opacity-75 section-label d-block mb-1">Organisation</span>
 
 
-            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+            <div class="d-flex align-items-center gap-2 py-">
               <i class="bi bi-people text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Users</span>
@@ -140,21 +138,5 @@
   </div>
 
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
-
-<style>
-.card-hover {
-  transition: transform .2s ease-in-out, box-shadow .2s ease-in-out;
-}
-.card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
-}
-.section-label {
-  font-size: 0.65rem;
-  letter-spacing: 0.03em;
-}
-</style>
 
 {% endblock %}

@@ -73,7 +73,6 @@
 
             <div class="d-flex justify-content-between align-items-center mb-2">
               <span class="badge bg-light text-dark border rounded-2 px-3 py-2">#{{ forloop.counter|stringformat:"d" }}</span>
-               
             </div>
 
             <div class="d-flex align-items-center gap-2">
@@ -82,7 +81,6 @@
               </div>
               <div>
                 <span class="fw-bold text-dark">{{ directorate.name|capfirst }}</span>
-                <span class="text-muted small d-block"><i class="bi bi-bank me-1"></i>{{ directorate.general_directorate.name|capfirst }}</span>
               </div>
             </div>
 
@@ -92,22 +90,16 @@
           <!-- Stats -->
           <div class="card-body pt-2 pb-2 px-3">
             <div class="row g-1">
-              <div class="col-4">
+              <div class="col-6">
                 <div class="bg-light border rounded p-2 text-center">
                   <span class="fw-semibold small d-block">{{ directorate.departments_count }}</span>
                   <span class="text-muted small">Depart.</span>
                 </div>
               </div>
-              <div class="col-4">
+              <div class="col-6">
                 <div class="bg-light border rounded p-2 text-center">
                   <span class="fw-semibold small d-block">{{ directorate.offices_count }}</span>
                   <span class="text-muted small">Offices</span>
-                </div>
-              </div>
-              <div class="col-4">
-                <div class="bg-light border rounded p-2 text-center">
-                  <span class="fw-semibold small d-block">{{ directorate.users_count }}</span>
-                  <span class="text-muted small">Users</span>
                 </div>
               </div>
             </div>
@@ -117,9 +109,8 @@
           <!-- Organisation -->
           <div class="px-3 pt-1 pb-2">
 
-            <span class="text-muted opacity-75 section-label d-block mb-1">Organisation</span
-           
-              <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+            <span class="text-muted opacity-75 section-label d-block mb-1">Organisation</span>
+            <div class="d-flex align-items-center gap-2 py-1">
               <i class="bi bi-people text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Users</span>
@@ -151,20 +142,5 @@
 
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
-
-<style>
-.card-hover {
-  transition: transform .2s ease-in-out, box-shadow .2s ease-in-out;
-}
-.card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
-}
-.section-label {
-  font-size: 0.65rem;
-  letter-spacing: 0.03em;
-}
-</style>
 
 {% endblock %}

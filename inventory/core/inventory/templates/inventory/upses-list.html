@@ -5,152 +5,183 @@
 
 <div class="container-fluid">
 
-  <!-- Affixed Navigation Bar -->
-  <nav class="navbar bg-white border shadow-sm sticky-top px-4 mb-4 rounded-3" style="z-index: 900;">
+  <!-- Top Navbar -->
+  <nav class="navbar bg-white border shadow-sm sticky-top px-4 mb-4 rounded-3 z-1">
     <div class="d-flex align-items-center gap-3">
-      <i class="bi bi-battery-charging fs-2 text-primary"></i>
+
+      <i class="bi bi-battery-charging text-hardware fs-2"></i>
+
       <div class="d-flex flex-column lh-sm">
         <span class="fw-semibold text-dark">UPS Units</span>
         <span class="text-muted small">Hardware Inventory</span>
       </div>
-      <span
-        class="d-flex align-items-center justify-content-center rounded-circle bg-light border text-secondary fw-bold fs-6"
-        style="width: 36px; height: 36px;">
-        {{ upses|length }}
-      </span>
+
+      <div class="vr"></div>
+
+      <div class="d-flex align-items-center gap-2">
+        <span class="badge bg-light text-dark border rounded-2 px-3 py-2">Total: {{ upses|length }}</span>
+      </div>
+
     </div>
 
     <div class="d-flex align-items-center gap-2 ms-auto">
-      <a href="#" class="btn btn-sm btn-light border text-secondary d-flex align-items-center gap-1">
-        <i class="bi bi-file-pdf"></i>
-        <span class="small">PDF</span>
-      </a>
-      <a href="#" class="btn btn-sm btn-light border text-secondary d-flex align-items-center gap-1">
-        <i class="bi bi-file-earmark-csv"></i>
-        <span class="small">CSV</span>
-      </a>
 
-      <div class="vr mx-1"></div>
+      <div class="dropdown">
+        <button class="btn btn-sm btn-light border dropdown-toggle" data-bs-toggle="dropdown">
+          <i class="bi bi-download me-1"></i> Export
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item"><i class="bi bi-file-pdf text-danger me-2"></i>PDF</a></li>
+          <li><a class="dropdown-item"><i class="bi bi-file-earmark-excel text-success me-2"></i>Excel</a></li>
+          <li><a class="dropdown-item"><i class="bi bi-file-earmark-csv text-primary me-2"></i>CSV</a></li>
+        </ul>
+      </div>
 
-      <a href="#" class="btn btn-sm btn-light border text-secondary rounded d-flex align-items-center gap-2 px-3">
+      <a href="#" class="btn btn-sm btn-light border d-flex align-items-center gap-2 px-3">
         <i class="bi bi-plus-lg"></i>
-        <span class="small fw-semibold">Add New</span>
+        <span class="small fw-semibold">Add UPS</span>
       </a>
+
+      <button class="btn btn-sm btn-light border">
+        <i class="bi bi-funnel"></i>
+      </button>
+
     </div>
   </nav>
 
-  <!-- Cards Grid -->
+
+  <!-- Results + View Toggle -->
+  <div class="d-flex justify-content-between align-items-center px-3 mb-3">
+    <span class="text-muted small">Showing {{ upses|length }} UPS units</span>
+    <div class="btn-group btn-group-sm">
+      <button class="btn btn-light border active"><i class="bi bi-grid-3x3-gap-fill"></i></button>
+      <button class="btn btn-light border"><i class="bi bi-list-ul"></i></button>
+    </div>
+  </div>
+
+
+  <!-- Cards -->
   <div class="px-3">
-    <div class="row g-3" data-masonry='{"percentPosition": true, "horizontalOrder": true}'>
+    <div class="row g-4" data-masonry='{"percentPosition": true, "horizontalOrder": true}'>
+
       {% for ups in upses %}
       <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="card h-100 shadow rounded-4 overflow-hidden card-hover card-hardware">
 
-        {% if ups.usage_type == "office" %}
-        <div class="card shadow-sm rounded-3 overflow-hidden"
-          style="border-top: 5px solid var(--bs-primary-bg-subtle);">
-        {% elif ups.usage_type == "laboratory" %}
-        <div class="card shadow-sm rounded-3 overflow-hidden"
-          style="border-top: 5px solid var(--bs-success-bg-subtle);">
-        {% else %}
-        <div class="card shadow-sm rounded-3 overflow-hidden"
-          style="border-top: 5px solid var(--bs-secondary-bg-subtle);">
-        {% endif %}
+          <!-- Card Header -->
+          <div class="card-header bg-transparent border-0 pt-3 pb-1 px-3">
 
-          <!-- Top Bar -->
-          <div class="card-body pb-2">
             <div class="d-flex justify-content-between align-items-center mb-2">
-              <span class="badge bg-secondary">#{{ forloop.counter|stringformat:"04d" }}</span>
-              {% if ups.usage_type == "office" %}
-              <span class="badge bg-primary-subtle text-primary fw-normal">{{ ups.usage_type }}</span>
-              {% elif ups.usage_type == "laboratory" %}
-              <span class="badge bg-success-subtle text-success fw-normal">{{ ups.usage_type }}</span>
-              {% else %}
-              <span class="badge bg-secondary-subtle text-secondary fw-normal">{{ ups.usage_type }}</span>
-              {% endif %}
-            </div>
-
-            <h6 class="fw-bold fs-5 mb-1">
-              <i class="bi bi-battery-charging me-1 text-primary"></i>
-              {{ ups.brand|capfirst }} · {{ ups.model|capfirst }}
-            </h6>
-            <div class="d-flex gap-3 small text-muted">
-              <span>SN: <span class="fw-semibold text-dark">{{ ups.serial }}</span></span>
-              <span>Reg: <span class="fw-semibold text-dark">{{ ups.registration_code }}</span></span>
-            </div>
-          </div>
-
-          <!-- Specs Bar -->
-          <div class="d-flex justify-content-around align-items-center bg-light py-2 border-top border-bottom">
-            <div class="text-center">
-              <div class="fw-bold">{{ ups.capacity_va }} VA</div>
-              <div class="text-muted small">Capacity</div>
-            </div>
-          </div>
-
-          <!-- Body -->
-          <div class="card-body py-2">
-            <p class="text-uppercase text-muted fw-bold mb-1 small" style="letter-spacing:.08em;">Network</p>
-
-            <div class="d-flex justify-content-between align-items-center py-1 border-bottom">
-              <span class="text-muted d-flex align-items-center gap-2"><i class="bi bi-hdd-network"></i> IP</span>
-              <a href="http://{{ ups.ip_address }}" target="_blank"
-                class="small text-decoration-none text-primary fw-semibold">
-                <span class="badge bg-primary-subtle text-primary me-1" style="font-size:.6rem;">PING</span>
-                {{ ups.ip_address }}
-              </a>
-            </div>
-
-            <div class="d-flex justify-content-between align-items-center py-1 border-bottom">
-              <span class="text-muted d-flex align-items-center gap-2"><i class="bi bi-ethernet"></i> MAC</span>
-              <span class="text-muted small">{{ ups.mac_address }}</span>
-            </div>
-
-            <div class="d-flex justify-content-between align-items-center py-1 border-bottom">
-              <span class="text-muted d-flex align-items-center gap-2"><i class="bi bi-outlet"></i> Socket</span>
-              <span class="text-muted small">{{ ups.socket }}</span>
-            </div>
-
-            <div class="d-flex justify-content-between align-items-center py-1">
-              <span class="text-muted d-flex align-items-center gap-2"><i class="bi bi-person"></i> User</span>
-              <span class="small fw-semibold">
-                {% for assignment in ups.device_ptr.assignments.all %}
-                {{ assignment.user.name }} {{ assignment.user.surname }}
-                {% empty %}
-                <span class="text-muted fw-normal">Unassigned</span>
-                {% endfor %}
+              <span class="badge bg-light text-dark border rounded-2 px-3 py-2">#{{ forloop.counter|stringformat:"d" }}</span>
+              <span class="badge rounded-2 fw-normal px-3 py-2
+                {% if ups.usage_type == 'office' %}bg-primary-subtle text-primary
+                {% elif ups.usage_type == 'laboratory' %}bg-success-subtle text-success
+                {% else %}bg-secondary-subtle text-secondary{% endif %}">
+                <i class="bi me-1
+                  {% if ups.usage_type == 'office' %}bi-briefcase
+                  {% elif ups.usage_type == 'laboratory' %}bi-flask
+                  {% else %}bi-question-circle{% endif %}"></i>
+                {{ ups.usage_type|capfirst }}
               </span>
             </div>
+
+            <div class="d-flex align-items-center gap-2">
+              <i class="bi bi-battery-charging text-hardware fs-5"></i>
+              <div>
+                <span class="fw-bold text-dark">{{ ups.brand|capfirst }}</span>
+                <span class="text-muted small d-block">{{ ups.model|capfirst }}</span>
+              </div>
+            </div>
+
           </div>
 
+
+          <!-- Serial / Reg -->
+          <div class="px-3 pt-2 pb-1">
+            <div class="d-flex flex-wrap gap-2">
+              <span class="badge bg-light text-dark border"><i class="bi bi-upc-scan me-1"></i>{{ ups.serial }}</span>
+              <span class="badge bg-light text-dark border"><i class="bi bi-qr-code me-1"></i>{{ ups.registration_code }}</span>
+            </div>
+          </div>
+
+
+          <!-- Specs -->
+          <div class="card-body pt-2 pb-2 px-3">
+            <div class="row g-1">
+              <div class="col-12">
+                <div class="bg-light border rounded p-2 text-center">
+                  <span class="fw-semibold small d-block">{{ ups.capacity_va }} VA</span>
+                  <span class="text-muted small">Capacity</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Connection -->
+          <div class="px-3 pt-1 pb-2">
+
+            <span class="text-muted opacity-75 section-label d-block mb-1">Connection</span>
+
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-hdd-network text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">IP Address</span>
+                <a href="http://{{ ups.ip_address }}" target="_blank" class="text-decoration-none">
+                  <span class="badge bg-light text-muted border">{{ ups.ip_address }}</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-ethernet text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">MAC</span>
+                <span class="badge bg-light text-muted border">{{ ups.mac_address|upper }}</span>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi bi-outlet text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">Socket</span>
+                <span class="badge bg-light text-muted border">{{ ups.socket }}</span>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 py-1">
+              <i class="bi bi-person text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">User</span>
+                <span class="badge bg-light text-muted border">
+                  {% for assignment in ups.device_ptr.assignments.all %}
+                    {{ assignment.user.name }} {{ assignment.user.surname }}
+                  {% empty %}
+                    Unassigned
+                  {% endfor %}
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+
           <!-- Footer -->
-          <div class="card-footer bg-light d-flex justify-content-between align-items-center py-2">
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb m-0 p-0 small">
-                {% if ups.space %}
-                <li class="breadcrumb-item">
-                  <a class="text-secondary text-decoration-none">{{ ups.space.building }}</a>
-                </li>
-                <li class="breadcrumb-item">
-                  <a class="text-secondary text-decoration-none">{{ ups.space.floor }}</a>
-                </li>
-                <li class="breadcrumb-item">
-                  <a class="text-secondary text-decoration-none">{{ ups.space.room }}</a>
-                </li>
-                <li class="breadcrumb-item active">{{ ups.space }}</li>
-                {% elif ups.common_area %}
-                <li class="breadcrumb-item active">{{ ups.common_area }}</li>
-                {% endif %}
-              </ol>
-            </nav>
+          <div class="d-flex justify-content-between align-items-center px-3 py-2 border-top">
+            <div class="d-flex align-items-center gap-1 small text-muted">
+              <i class="bi bi-geo-alt-fill text-secondary"></i>
+              {% if ups.space %}{{ ups.location }}{% elif ups.common_area %}{{ ups.common_area }}{% endif %}
+            </div>
             <div class="d-flex gap-2">
-              <button class="btn btn-sm btn-outline-primary rounded-2 py-1 px-2"><i class="bi bi-pencil"></i></button>
-              <button class="btn btn-sm btn-outline-danger rounded-2 py-1 px-2"><i class="bi bi-trash"></i></button>
+              <button class="btn btn-sm btn-outline-info border-1"><i class="bi bi-pencil"></i></button>
+              <button class="btn btn-sm btn-outline-warning border-1"><i class="bi bi-trash"></i></button>
             </div>
           </div>
 
         </div>
       </div>
       {% endfor %}
+
     </div>
   </div>
 

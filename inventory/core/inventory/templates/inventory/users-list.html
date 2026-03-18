@@ -78,12 +78,11 @@
 
             <div class="d-flex align-items-center gap-2">
               <div class="">
-                <i class="bi bi-person-circle text-secondary fs-5"></i>
+                <i class="bi bi-person-circle text-organic fs-5"></i>
               </div>
               <div>
                 <span class="fw-bold text-dark">{{ user.name|capfirst }} {{ user.surname|capfirst }}</span>
-                <span class="text-muted small d-block"><i class="bi bi-folder2-open me-1"></i>{{ user.department|capfirst }}</span>
-                <span class="text-muted small d-block"><i class="bi bi-building me-1"></i>{{ user.office|capfirst }}</span>
+               
               </div>
             </div>
 
@@ -95,7 +94,11 @@
             <div class="row g-1">
               <div class="col-12">
                 <div class="bg-light border rounded p-2 text-center">
-                  <span class="fw-semibold small d-block">{{ user.status|capfirst }}</span>
+                  <!-- <span class="fw-semibold small d-block">{{ user.status|capfirst }}</span> -->
+                  <span
+                    class="fw-semibold small d-block {% if user.is_active %}text-success{% else %}text-danger{% endif %}">
+                    {% if user.is_active %}Active{% else %}Inactive{% endif %}
+                  </span>
                   <span class="text-muted small">Status</span>
                 </div>
               </div>
@@ -109,44 +112,20 @@
             <span class="text-muted opacity-75 section-label d-block mb-1">Organisation</span>
 
             <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
-              <i class="bi bi-bank text-secondary small"></i>
+              <i class="bi bi-person text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
-                <span class="text-muted small">General Directorate</span>
-                <span class="badge bg-light text-muted border">{{ user.general_directorate|capfirst }}</span>
+                <span class="text-muted small">Name</span>
+                <span class="badge bg-light text-muted border">{{ user.name|capfirst }}</span>
               </div>
             </div>
 
             <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
-              <i class="bi bi-diagram-2 text-secondary small"></i>
+              <i class="bi bi-person-badge text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
-                <span class="text-muted small">Directorate</span>
-                <span class="badge bg-light text-muted border">{{ user.directorate|capfirst }}</span>
+                <span class="text-muted small">Surname</span>
+                <span class="badge bg-light text-muted border">{{ user.surname|capfirst }}</span>
               </div>
             </div>
-
-            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
-              <i class="bi bi-folder2-open text-secondary small"></i>
-              <div class="d-flex justify-content-between w-100">
-                <span class="text-muted small">Department</span>
-                <span class="badge bg-light text-muted border">{{ user.department|capfirst }}</span>
-              </div>
-            </div>
-
-            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
-              <i class="bi bi-building text-secondary small"></i>
-              <div class="d-flex justify-content-between w-100">
-                <span class="text-muted small">Office</span>
-                <span class="badge bg-light text-muted border">{{ user.office|capfirst }}</span>
-              </div>
-            </div>
-
-          </div>
-
-
-          <!-- Contact -->
-          <div class="px-3 pt-1 pb-2">
-
-            <span class="text-muted opacity-75 section-label d-block mb-1">Contact</span>
 
             <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
               <i class="bi bi-envelope text-secondary small"></i>
@@ -156,18 +135,18 @@
               </div>
             </div>
 
-            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+            <div class="d-flex align-items-center gap-2 py-1">
               <i class="bi bi-telephone text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Phone</span>
-                <span class="badge bg-light text-muted border">{{ user.phone }}</span>
+                <span class="badge bg-light text-muted border">{{ user.phone|capfirst }}</span>
               </div>
             </div>
 
           </div>
 
 
-          <!-- Footer -->
+         <!-- Footer -->
           <div class="d-flex justify-content-between align-items-center px-3 py-2 border-top">
             <div class="d-flex align-items-center gap-1 small text-muted">
               <i class="bi bi-geo-alt-fill text-secondary"></i>
@@ -187,21 +166,5 @@
   </div>
 
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
-
-<style>
-.card-hover {
-  transition: transform .2s ease-in-out, box-shadow .2s ease-in-out;
-}
-.card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
-}
-.section-label {
-  font-size: 0.65rem;
-  letter-spacing: 0.03em;
-}
-</style>
 
 {% endblock %}

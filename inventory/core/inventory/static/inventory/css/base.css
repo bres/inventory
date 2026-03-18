@@ -78,11 +78,7 @@ body {
   transition: all 0.2s ease-in-out;
 }
 
-/* ── Section label ── */
-.section-label {
-  font-size: 0.65rem;
-  letter-spacing: 0.03em;
-}
+
 
 /* ── Category: thick top borders ── */
 .card-spatial  { border-top: 3px solid var(--bs-secondary) !important; }

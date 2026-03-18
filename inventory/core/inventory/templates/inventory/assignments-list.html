@@ -74,7 +74,7 @@
           <div class="card-header bg-transparent border-0 pt-3 pb-1 px-3">
 
             <div class="d-flex justify-content-between align-items-center mb-2">
-              <span class="badge bg-secondary rounded-2 px-3 py-2">#{{ forloop.counter|stringformat:"d" }}</span>
+              <span class="badge bg-light text-dark border rounded-2 px-3 py-2">#{{ forloop.counter|stringformat:"d" }}</span>
               <span class="badge {% if assignment.assignment_type == 'primary' %}bg-primary-subtle text-primary{% elif assignment.assignment_type == 'shared' %}bg-success-subtle text-success{% else %}bg-warning-subtle text-warning{% endif %} px-3 py-2 rounded-2 fw-normal">
                 <i class="bi {% if assignment.assignment_type == 'primary' %}bi-person-check{% elif assignment.assignment_type == 'shared' %}bi-people{% else %}bi-person-dash{% endif %} me-1"></i>
                 {{ assignment.assignment_type|capfirst }}
@@ -82,8 +82,8 @@
             </div>
 
             <div class="d-flex align-items-center gap-2">
-              <div class="bg-light rounded-2 p-2">
-                <i class="bi bi-person-check text-secondary fs-5"></i>
+              <div class="">
+                <i class="bi bi-person-check text-organic fs-5"></i>
               </div>
               <div>
                 <span class="fw-bold text-dark">{{ assignment.user.name|capfirst }} {{ assignment.user.surname|capfirst }}</span>
@@ -106,14 +106,14 @@
           <div class="card-body pt-2 pb-2 px-3">
             <div class="row g-1">
               <div class="col-6">
-                <div class="bg-light rounded p-2 text-center">
-                  <span class="fw-semibold small d-block">{{ assignment.assignment_date }}</span>
+                <div class="bg-light border rounded p-2 text-center">
+                  <span class="fw-semibold small d-block text-success">{{ assignment.assignment_date }}</span>
                   <span class="text-muted small">Start</span>
                 </div>
               </div>
               <div class="col-6">
-                <div class="bg-light rounded p-2 text-center">
-                  <span class="fw-semibold small d-block">{{ assignment.end_date|default:"—" }}</span>
+                <div class="bg-light border rounded p-2 text-center">
+                  <span class="fw-semibold small d-block text-success">{{ assignment.end_date|default:"—" }}</span>
                   <span class="text-muted small">End</span>
                 </div>
               </div>
@@ -151,7 +151,7 @@
             </div>
 
             {% if assignment.notes %}
-            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+            <div class="d-flex align-items-center gap-2 py-1">
               <i class="bi bi-card-text text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Notes</span>
@@ -164,11 +164,11 @@
 
 
           <!-- Location -->
-          <div class="px-3 pt-1 pb-2">
+          <!-- <div class="px-3 pt-1 pb-2">
 
             <span class="text-muted opacity-75 section-label d-block mb-1">Location</span>
 
-            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+            <div class="d-flex align-items-center gap-2 py-1">
               <i class="bi bi-geo-alt text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Place</span>
@@ -184,19 +184,23 @@
               </div>
             </div>
 
-          </div>
+          </div> -->
 
 
           <!-- Footer -->
           <div class="d-flex justify-content-between align-items-center px-3 py-2 border-top">
-            <div class="d-flex align-items-center gap-1 small text-muted">
-              <i class="bi bi-geo-alt-fill text-secondary"></i>
-              {% if assignment.device.space %}
-                {{ assignment.device.space }}
-              {% elif assignment.device.common_area %}
-                {{ assignment.device.common_area }}
-              {% endif %}
-            </div>
+             <i class="bi bi-geo-alt text-secondary small"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-dark small">
+                  {% if assignment.device.space %}
+                    {{ assignment.device.space.building }} · {{ assignment.device.space.room }}
+                  {% elif assignment.device.common_area %}
+                    {{ assignment.device.common_area }}
+                  {% else %}
+                    —
+                  {% endif %}
+                </span>
+              </div>
             <div class="d-flex gap-2">
               <button class="btn btn-sm btn-outline-info border-1"><i class="bi bi-pencil"></i></button>
               <button class="btn btn-sm btn-outline-warning border-1"><i class="bi bi-trash"></i></button>
@@ -211,21 +215,5 @@
   </div>
 
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
-
-<style>
-.card-hover {
-  transition: transform .2s ease-in-out, box-shadow .2s ease-in-out;
-}
-.card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
-}
-.section-label {
-  font-size: 0.65rem;
-  letter-spacing: 0.03em;
-}
-</style>
 
 {% endblock %}

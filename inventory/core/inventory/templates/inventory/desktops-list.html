@@ -12,16 +12,16 @@
       <i class="bi bi-pc-display text-hardware fs-2"></i>
 
       <div class="d-flex flex-column lh-sm">
-        <span class="fw-semibold text-dark">Desktop Inventory</span>
-        <span class="text-muted small">Hardware Management</span>
+        <span class="fw-semibold text-dark">Desktops</span>
+        <span class="text-muted small">Hardware Inventory</span>
       </div>
 
       <div class="vr"></div>
 
       <div class="d-flex align-items-center gap-2">
-        <span class="badge bg-light text-dark border rounded-5 px-3 py-2">Total: {{ desktops|length }}</span>
-        <span class="badge bg-primary-subtle text-primary rounded-5 px-3 py-2">Office: {{ office_count }}</span>
-        <span class="badge bg-success-subtle text-success rounded-5 px-3 py-2">Lab: {{ lab_count }}</span>
+        <span class="badge bg-light text-dark border rounded-2 px-3 py-2">Total: {{ desktops|length }}</span>
+        <span class="badge bg-primary-subtle text-primary border rounded-2 px-3 py-2">Office: {{ office_count }}</span>
+        <span class="badge bg-success-subtle text-success border rounded-2 px-3 py-2">Lab: {{ lab_count }}</span>
       </div>
 
     </div>
@@ -74,18 +74,21 @@
           <div class="card-header bg-transparent border-0 pt-3 pb-1 px-3">
 
             <div class="d-flex justify-content-between align-items-center mb-2">
-              <span class="badge bg-secondary rounded-2 px-3 py-2">#{{ forloop.counter|stringformat:"d" }}</span>
-
-              <span class="badge {% if desktop.usage_type == 'office' %}bg-primary-subtle text-primary{% elif desktop.usage_type == 'laboratory' %}bg-success-subtle text-success{% else %}bg-secondary-subtle text-secondary{% endif %} px-3 py-2 rounded-2 fw-normal">
-                <i class="bi {% if desktop.usage_type == 'office' %}bi-briefcase{% elif desktop.usage_type == 'laboratory' %}bi-flask{% else %}bi-question-circle{% endif %} me-1"></i>
+              <span class="badge bg-light text-dark border rounded-2 px-3 py-2">#{{ forloop.counter|stringformat:"d" }}</span>
+              <span class="badge rounded-2 fw-normal px-3 py-2
+                {% if desktop.usage_type == 'office' %}bg-primary-subtle text-primary
+                {% elif desktop.usage_type == 'laboratory' %}bg-success-subtle text-success
+                {% else %}bg-secondary-subtle text-secondary{% endif %}">
+                <i class="bi me-1
+                  {% if desktop.usage_type == 'office' %}bi-briefcase
+                  {% elif desktop.usage_type == 'laboratory' %}bi-flask
+                  {% else %}bi-question-circle{% endif %}"></i>
                 {{ desktop.usage_type|capfirst }}
               </span>
             </div>
 
             <div class="d-flex align-items-center gap-2">
-              <div class="bg-light rounded-2 p-2">
-                <i class="bi bi-pc-display text-secondary fs-5"></i>
-              </div>
+              <i class="bi bi-pc-display text-hardware fs-5"></i>
               <div>
                 <span class="fw-bold text-dark">{{ desktop.brand|capfirst }}</span>
                 <span class="text-muted small d-block">{{ desktop.model|capfirst }}</span>
@@ -108,37 +111,39 @@
           <div class="card-body pt-2 pb-2 px-3">
             <div class="row g-1">
               <div class="col-4">
-                <div class="bg-light rounded p-2 text-center">
+                <div class="bg-light border rounded p-2 text-center">
                   <span class="fw-semibold small d-block">{{ desktop.cpu }}</span>
                   <span class="text-muted small">GHz</span>
                 </div>
               </div>
               <div class="col-4">
-                <div class="bg-light rounded p-2 text-center">
+                <div class="bg-light border rounded p-2 text-center">
                   <span class="fw-semibold small d-block">{{ desktop.ram_gb }}</span>
-                  <span class="text-muted small">GB</span>
+                  <span class="text-muted small">RAM GB</span>
                 </div>
               </div>
               <div class="col-4">
-                <div class="bg-light rounded p-2 text-center">
+                <div class="bg-light border rounded p-2 text-center">
                   <span class="fw-semibold small d-block">{{ desktop.storage_gb }}</span>
-                  <span class="text-muted small">GB</span>
+                  <span class="text-muted small">SSD GB</span>
                 </div>
               </div>
             </div>
           </div>
 
 
-          <!-- Network / Socket / User -->
+          <!-- Connection Details -->
           <div class="px-3 pt-1 pb-2">
 
-            <span class="text-muted opacity-75 section-label d-block mb-1">Connection Details</span>
+            <span class="text-muted opacity-75 section-label d-block mb-1">Connection</span>
 
             <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
               <i class="bi bi-hdd-network text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">IP Address</span>
-                <a href="http://{{ desktop.ip_address }}" target="_blank" class="text-decoration-none text-dark small">{{ desktop.ip_address }}</a>
+                <a href="http://{{ desktop.ip_address }}" target="_blank" class="text-decoration-none">
+                  <span class="badge bg-light text-muted border">{{ desktop.ip_address }}</span>
+                </a>
               </div>
             </div>
 
@@ -146,7 +151,7 @@
               <i class="bi bi-ethernet text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">MAC</span>
-                <span class="text-dark small">{{ desktop.mac_address|upper }}</span>
+                <span class="badge bg-light text-muted border">{{ desktop.mac_address|upper }}</span>
               </div>
             </div>
 
@@ -154,19 +159,19 @@
               <i class="bi bi-outlet text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Socket</span>
-                <span class="text-dark small">{{ desktop.socket }}</span>
+                <span class="badge bg-light text-muted border">{{ desktop.socket }}</span>
               </div>
             </div>
 
-            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+            <div class="d-flex align-items-center gap-2 py-1">
               <i class="bi bi-person text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">User</span>
-                <span class="text-dark small">
+                <span class="badge bg-light text-muted border">
                   {% for assignment in desktop.device_ptr.assignments.all %}
                     {{ assignment.user.name }} {{ assignment.user.surname }}
                   {% empty %}
-                    <span class="text-muted small">Unassigned</span>
+                    Unassigned
                   {% endfor %}
                 </span>
               </div>
@@ -183,12 +188,16 @@
             <span class="text-muted opacity-75 section-label d-block mb-1">Peripherals ({{ peripheral_count }})</span>
 
             {% for peripheral in desktop.device_ptr.peripherals.all %}
-            <div class="d-flex justify-content-between align-items-center py-1 border-bottom border-light">
-              <div class="d-flex align-items-center gap-2">
-                <i class="bi {% if peripheral.peripheral_type == 'monitor' %}bi-display{% elif peripheral.peripheral_type == 'keyboard' %}bi-keyboard{% elif peripheral.peripheral_type == 'mouse' %}bi-mouse{% else %}bi-usb-plug{% endif %} text-secondary small"></i>
-                <span class="text-dark small">{{ peripheral.brand|capfirst }}</span>
+            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+              <i class="bi text-secondary small
+                {% if peripheral.peripheral_type == 'monitor' %}bi-display
+                {% elif peripheral.peripheral_type == 'keyboard' %}bi-keyboard
+                {% elif peripheral.peripheral_type == 'mouse' %}bi-mouse
+                {% else %}bi-usb-plug{% endif %}"></i>
+              <div class="d-flex justify-content-between w-100">
+                <span class="text-muted small">{{ peripheral.brand|capfirst }}</span>
+                <span class="badge bg-light text-muted border">{{ peripheral.serial_number }}</span>
               </div>
-              <span class="text-muted small">{{ peripheral.serial_number }}</span>
             </div>
             {% endfor %}
 
@@ -197,7 +206,7 @@
           {% endwith %}
 
 
-          <!-- Location -->
+          <!-- Footer -->
           <div class="d-flex justify-content-between align-items-center px-3 py-2 border-top">
             <div class="d-flex align-items-center gap-1 small text-muted">
               <i class="bi bi-geo-alt-fill text-secondary"></i>
@@ -217,21 +226,5 @@
   </div>
 
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
-
-<style>
-.card-hover {
-  transition: transform .2s ease-in-out, box-shadow .2s ease-in-out;
-}
-.card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
-}
-.section-label {
-  font-size: 0.65rem;
-  letter-spacing: 0.03em;
-}
-</style>
 
 {% endblock %}

@@ -9,17 +9,17 @@
   <nav class="navbar bg-white border shadow-sm sticky-top px-4 mb-4 rounded-3 z-1">
     <div class="d-flex align-items-center gap-3">
 
-      <i class="bi bi-wifi text-primary fs-2"></i>
+      <i class="bi bi-wifi text-hardware fs-2"></i>
 
       <div class="d-flex flex-column lh-sm">
         <span class="fw-semibold text-dark">Access Points</span>
-        <span class="text-muted small">Network Infrastructure</span>
+        <span class="text-muted small">Hardware Inventory</span>
       </div>
 
       <div class="vr"></div>
 
       <div class="d-flex align-items-center gap-2">
-        <span class="badge bg-light text-dark border rounded-5 px-3 py-2">Total: {{ accesspoints|length }}</span>
+        <span class="badge bg-light text-dark border rounded-2 px-3 py-2">Total: {{ accesspoints|length }}</span>
       </div>
 
     </div>
@@ -66,31 +66,27 @@
 
       {% for accesspoint in accesspoints %}
       <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="card h-100 shadow rounded-4 overflow-hidden card-hover border-top border-3 
-          {% if accesspoint.usage_type == 'office' %}
-            border-primary
-          {% elif accesspoint.usage_type == 'laboratory' %}
-            border-success
-          {% else %}
-            border-secondary
-          {% endif %} border-0">
+        <div class="card h-100 shadow rounded-4 overflow-hidden card-hover card-hardware">
 
           <!-- Card Header -->
           <div class="card-header bg-transparent border-0 pt-3 pb-1 px-3">
 
             <div class="d-flex justify-content-between align-items-center mb-2">
               <span class="badge bg-light text-dark border rounded-2 px-3 py-2">#{{ forloop.counter|stringformat:"d" }}</span>
-              {% if accesspoint.usage_type == "office" %}
-              <span class="badge bg-primary-subtle text-primary">{{ accesspoint.usage_type|title }}</span>
-              {% elif accesspoint.usage_type == "laboratory" %}
-              <span class="badge bg-success-subtle text-success">{{ accesspoint.usage_type|title }}</span>
-              {% else %}
-              <span class="badge bg-secondary-subtle text-secondary">{{ accesspoint.usage_type|title }}</span>
-              {% endif %}
+              <span class="badge rounded-2 fw-normal px-3 py-2
+                {% if accesspoint.usage_type == 'office' %}bg-primary-subtle text-primary
+                {% elif accesspoint.usage_type == 'laboratory' %}bg-success-subtle text-success
+                {% else %}bg-secondary-subtle text-secondary{% endif %}">
+                <i class="bi me-1
+                  {% if accesspoint.usage_type == 'office' %}bi-briefcase
+                  {% elif accesspoint.usage_type == 'laboratory' %}bi-flask
+                  {% else %}bi-question-circle{% endif %}"></i>
+                {{ accesspoint.usage_type|capfirst }}
+              </span>
             </div>
 
             <div class="d-flex align-items-center gap-2">
-              <i class="bi bi-wifi text-primary fs-5"></i>
+              <i class="bi bi-wifi text-hardware fs-5"></i>
               <div>
                 <span class="fw-bold text-dark">{{ accesspoint.brand|capfirst }} {{ accesspoint.model|capfirst }}</span>
                 <span class="text-muted small d-block">SN: {{ accesspoint.serial }}</span>
@@ -100,44 +96,50 @@
           </div>
 
 
-          <!-- Stats - 3-COLUMN layout -->
+          <!-- Stats -->
           <div class="card-body pt-2 pb-2 px-3">
             <div class="row g-1">
               <div class="col-4">
                 <div class="bg-light border rounded p-2 text-center">
-                  {% if accesspoint.gps_lat and accesspoint.gps_lon %}
-                  <i class="bi bi-geo-alt-fill text-success small"></i>
-                  {% else %}
-                  <i class="bi bi-geo-alt text-secondary small"></i>
-                  {% endif %}
-                  <span class="text-muted small d-block">GPS</span>
+                  <span class="fw-semibold small d-block">
+                    {% if accesspoint.gps_lat and accesspoint.gps_lon %}
+                    <i class="bi bi-geo-alt-fill text-success"></i>
+                    {% else %}
+                    <i class="bi bi-geo-alt text-secondary"></i>
+                    {% endif %}
+                  </span>
+                  <span class="text-muted small">GPS</span>
                 </div>
               </div>
               <div class="col-4">
                 <div class="bg-light border rounded p-2 text-center">
-                  {% if accesspoint.ip_address %}
-                  <i class="bi bi-check-circle-fill text-success small"></i>
-                  {% else %}
-                  <i class="bi bi-x-circle-fill text-secondary small"></i>
-                  {% endif %}
-                  <span class="text-muted small d-block">IP</span>
+                  <span class="fw-semibold small d-block">
+                    {% if accesspoint.ip_address %}
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                    {% else %}
+                    <i class="bi bi-x-circle-fill text-secondary"></i>
+                    {% endif %}
+                  </span>
+                  <span class="text-muted small">IP</span>
                 </div>
               </div>
               <div class="col-4">
                 <div class="bg-light border rounded p-2 text-center">
-                  {% if accesspoint.mac_address %}
-                  <i class="bi bi-check-circle-fill text-success small"></i>
-                  {% else %}
-                  <i class="bi bi-x-circle-fill text-secondary small"></i>
-                  {% endif %}
-                  <span class="text-muted small d-block">MAC</span>
+                  <span class="fw-semibold small d-block">
+                    {% if accesspoint.mac_address %}
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                    {% else %}
+                    <i class="bi bi-x-circle-fill text-secondary"></i>
+                    {% endif %}
+                  </span>
+                  <span class="text-muted small">MAC</span>
                 </div>
               </div>
             </div>
           </div>
 
 
-          <!-- Network Details -->
+          <!-- Network -->
           <div class="px-3 pt-1 pb-2">
 
             <span class="text-muted opacity-75 section-label d-block mb-1">Network</span>
@@ -147,9 +149,11 @@
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">IP Address</span>
                 {% if accesspoint.ip_address %}
-                <a href="http://{{ accesspoint.ip_address }}" target="_blank" class="small text-primary">{{ accesspoint.ip_address }}</a>
+                <a href="http://{{ accesspoint.ip_address }}" target="_blank" class="text-decoration-none">
+                  <span class="badge bg-light text-muted border">{{ accesspoint.ip_address }}</span>
+                </a>
                 {% else %}
-                <span class="text-muted small">—</span>
+                <span class="badge bg-light text-muted border">—</span>
                 {% endif %}
               </div>
             </div>
@@ -157,35 +161,41 @@
             <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
               <i class="bi bi-ethernet text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
-                <span class="text-muted small">MAC Address</span>
-                <span class="text-muted small">{{ accesspoint.mac_address|default:"—" }}</span>
+                <span class="text-muted small">MAC</span>
+                <span class="badge bg-light text-muted border">{{ accesspoint.mac_address|upper|default:"—" }}</span>
               </div>
             </div>
 
             <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
-              <i class="bi bi-upc-scan text-secondary small"></i>
+              <i class="bi bi-qr-code text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Reg. Code</span>
-                <span class="text-muted small">{{ accesspoint.registration_code|default:"—" }}</span>
+                <span class="badge bg-light text-muted border">{{ accesspoint.registration_code|default:"—" }}</span>
               </div>
             </div>
 
-            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+            <div class="d-flex align-items-center gap-2 py-1">
               <i class="bi bi-outlet text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Socket</span>
-                <span class="text-muted small">{{ accesspoint.socket|default:"—" }}</span>
+                <span class="badge bg-light text-muted border">{{ accesspoint.socket|default:"—" }}</span>
               </div>
             </div>
 
-            {% if accesspoint.gps_lat and accesspoint.gps_lon %}
-            <span class="text-muted opacity-75 section-label d-block mb-1 mt-2">GPS Location</span>
+          </div>
+
+
+          <!-- GPS Location (conditional) -->
+          {% if accesspoint.gps_lat and accesspoint.gps_lon %}
+          <div class="px-3 pt-1 pb-2">
+
+            <span class="text-muted opacity-75 section-label d-block mb-1">GPS Location</span>
 
             <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
               <i class="bi bi-geo-alt text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Latitude</span>
-                <span class="text-muted small">{{ accesspoint.gps_lat }}</span>
+                <span class="badge bg-light text-muted border">{{ accesspoint.gps_lat }}</span>
               </div>
             </div>
 
@@ -193,32 +203,40 @@
               <i class="bi bi-geo-alt text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Longitude</span>
-                <span class="text-muted small">{{ accesspoint.gps_lon }}</span>
+                <span class="badge bg-light text-muted border">{{ accesspoint.gps_lon }}</span>
               </div>
             </div>
 
-            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+            <div class="d-flex align-items-center gap-2 py-1">
               <i class="bi bi-map text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">Maps</span>
-                <a href="https://www.google.com/maps?q={{ accesspoint.gps_lat }},{{ accesspoint.gps_lon }}" 
-                   target="_blank" class="small text-primary">View</a>
+                <a href="https://www.google.com/maps?q={{ accesspoint.gps_lat }},{{ accesspoint.gps_lon }}"
+                   target="_blank" class="text-decoration-none">
+                  <span class="badge bg-light text-muted border">View</span>
+                </a>
               </div>
             </div>
-            {% endif %}
 
-            <span class="text-muted opacity-75 section-label d-block mb-1 mt-2">Assignment</span>
+          </div>
+          {% endif %}
 
-            <div class="d-flex align-items-center gap-2 py-1 border-bottom border-light">
+
+          <!-- Assignment -->
+          <div class="px-3 pt-1 pb-2">
+
+            <span class="text-muted opacity-75 section-label d-block mb-1">Assignment</span>
+
+            <div class="d-flex align-items-center gap-2 py-1">
               <i class="bi bi-person text-secondary small"></i>
               <div class="d-flex justify-content-between w-100">
                 <span class="text-muted small">User</span>
-                <span class="small">
+                <span class="badge bg-light text-muted border">
                   {% with assignment=accesspoint.assignments.first %}
                     {% if assignment %}
-                      <span class="text-dark">{{ assignment.user.name }} {{ assignment.user.surname }}</span>
+                      {{ assignment.user.name }} {{ assignment.user.surname }}
                     {% else %}
-                      <span class="text-muted fw-normal">Unassigned</span>
+                      Unassigned
                     {% endif %}
                   {% endwith %}
                 </span>
@@ -228,16 +246,16 @@
           </div>
 
 
-          <!-- Footer with Location -->
+          <!-- Footer -->
           <div class="d-flex justify-content-between align-items-center px-3 py-2 border-top">
             <div class="d-flex align-items-center gap-1 small text-muted">
               <i class="bi bi-geo-alt-fill text-secondary"></i>
               {% if accesspoint.space %}
-                {{ accesspoint.space.building.name|capfirst }} · 
-                {{ accesspoint.space.floor.floor_number }} · 
+                {{ accesspoint.space.building.name|capfirst }} ·
+                {{ accesspoint.space.floor.floor_number }} ·
                 {{ accesspoint.space.room.room_code }}
               {% elif accesspoint.common_area %}
-                {{ accesspoint.common_area.floor.building.name|capfirst }} · 
+                {{ accesspoint.common_area.floor.building.name|capfirst }} ·
                 {{ accesspoint.common_area.name }}
               {% endif %}
             </div>
@@ -265,20 +283,5 @@
 
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
-
-<style>
-.card-hover {
-  transition: transform .2s ease-in-out, box-shadow .2s ease-in-out;
-}
-.card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
-}
-.section-label {
-  font-size: 0.65rem;
-  letter-spacing: 0.03em;
-}
-</style>
 
 {% endblock %}
